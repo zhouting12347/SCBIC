@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/barstyle.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+		table tbody {
+	        display:block;
+	        height:800px;
+	        overflow-y:scroll;
+	    }
+	    table thead, tbody tr {
+	        display:table;
+	        width:100%;
+	        table-layout:fixed;
+	    }
+	    table thead {
+	        width: calc( 100% - 1em )
+	    }
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:15px;">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel-heading" style="background-color:#C60000;"><h3>视频回看</h3></div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<!-- 左 -->
+		<div class="col-xs-5">
+			<div class="row">
+				<div class="col-xs-6">
+				   	<div class="form-inline">
+					  <div class="form-group">
+					    <label for="YTRQ" style="margin-right:5px">开始时间：</label>
+					    <input type="text" class="form-control"  id="startDate" style="width:290px;" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+					  </div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<label for="YTRQ" style="margin-right:5px">频道名称：</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+				   	<div class="form-inline">
+					  <div class="form-group">
+					    	<select class="form-control input-sm"  id="channel" style="height:550px;width:380px;" multiple="multiple" >
+								  <volist name="program" id="vo">
+								  		<option value="{$vo.programName}">{$vo.programName}</option>
+								  </volist>
+							</select>
+					  	</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-6" style="text-align: center;">
+					<div class="form-inline">
+					  <div class="form-group">
+					     <span class="input-group-btn">
+							<button class="btn btn-info" type="button" id="replay" style="width:100%;">播放</button>
+						</span>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end 左 -->
+		
+		<!-- 右 -->
+		<div class="col-xs-7">
+			<br>
+			<div class="row">
+				 <div class="col-xs-10">
+					<object type='application/x-vlc-plugin' id='vlc' events='True'
+		       			classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' width="100%" height="605" >
+					  <param name="MRL" ref value="">  
+			          <param name='volume' value='50' />
+			          <param name='autoplay' value='true' />
+			          <param name='loop' value='false' />
+			          <param name='fullscreen' value='false' />
+					  <param name='toolbar' value='false' /> 
+					</object>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-1" style="background-color:#414141;padding:5px 0;">
+					<button type="button" class="btn btn-default contral" style="padding:3px 12px;margin-left:5px;">停止</button>
+				</div>
+				<div class="col-xs-9 playBar" style="background-color:#414141;padding:5px 0;height:38px;"></div>
+			</div>
+		</div>
+		<!-- edn 右 -->
+	</div>
+</div>
+<!-- 正在加载动画 -->
+<div class="loading" style="position:absolute;top:0;width:100%;height:100%;border:0px solid red;text-align:center;display: none;">
+	<img src="__PUBLIC__/img/loading.gif" style="position:absolute;top:35%;left:30%;"/>
+</div>
+<script src="__PUBLIC__/js/jquery-1.11.3.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script src="__PUBLIC__/js/replay.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script src="__PUBLIC__/js/jquery-PlayBar.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+<script>
+var action=false;
+var isAction = false;
+var width = 0;
+var thewidth = 0;
+var CurrTime = 0;
+var t;
+var addHour = 0,
+    addMinute = 0,
+    addSecond = 0,
+    TheHour = 0,
+    TheMinute = 0,
+    TheSecond = 0;
+var flag = 0;
+var alltime = 0;
+var addwidth = 0;
+var offsetW = 0;
+var times = 0;
+var rwidth = 0;
+var videoURL;
+var checkStatus1;
+var checkStatus2;
+var replayStatus;  //播放状态
+
+var startSecond;
+var loadingStatus=0;
+var videoDate="2015-10-11";
+var videoHour="12";
+var videoURL2; //下一个地址
+</script>
+</body>
+</html>

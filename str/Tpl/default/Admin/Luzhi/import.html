@@ -1,0 +1,146 @@
+<include file="Public/header" />
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar                  responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+									<div class="center" style="width:400px; margin:12px;">
+										<h3 class="header blue smaller lighter">
+											导入EXCEL录制表
+										</h3>
+																				
+										<!-- our form -->
+											<form id="form1" action="__GROUP__/Luzhi/importHandler" method="post" enctype="multipart/form-data">
+												<label class="ace-file-input ace-file-multiple">
+													<input type="file" name="fileName" >
+												</label>
+												<div class="hr hr-12 dotted"></div>
+												<p><span class="blue smaller lighter">任务名称&nbsp&nbsp</span><input type="text" name="TaskName" placeholder="创建任务名称"></p>
+												<button type="submit" class="btn btn-sm btn-primary" id="submit">上传</button>
+												<button type="reset" class="btn btn-sm">重置</button>
+											</form>
+										</div>
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+			
+<include file="Public/footer" />
+<script type="text/javascript">
+	jQuery(function($) {
+		var $form = $('#form1');
+		var file_input = $form.find('input[type=file]');
+		var upload_in_progress = false;
+		file_input.ace_file_input({
+			style : 'well',
+			btn_choose : '选择EXCEL文件',
+			btn_change: null,
+			droppable: true,
+			thumbnail: 'large',
+			
+			maxSize: 510000,//bytes
+			allowExt: ["xlsx"],
+
+			before_remove: function() {
+				if(upload_in_progress)
+					return false;//if we are in the middle of uploading a file, don't allow resetting file input
+				return true;
+			},
+
+			preview_error: function(filename , code) {
+				//code = 1 means file load error
+				//code = 2 image load error (possibly file is not an image)
+				//code = 3 preview failed
+			}
+		});
+		file_input.on('file.error.ace', function(ev, info) {
+			if(info.error_count['ext'] || info.error_count['mime']) alert('文件格式错误! 请选择一个EXCEL文件!');
+			if(info.error_count['size']) alert('文件大小超过500KB');
+			//you can reset previous selection on error
+			//ev.preventDefault();
+			//file_input.ace_file_input('reset_input');
+		});
+		
+		
+		var ie_timeout = null;//a time for old browsers uploading via iframe
+		
+		//防止多次点击重复提交
+		$("#form1").submit(function(){  
+			$("#submit").attr("disabled","disabled");  
+		});  
+		
+	});
+</script>
+	</body>
+</html>

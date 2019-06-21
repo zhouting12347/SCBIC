@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+.myTr{background-color: gray;}
+.room{height:300px;}
+.room-image img{width:150px;height:100px;}
+.nav-search{position: relative;margin-left:20px;}

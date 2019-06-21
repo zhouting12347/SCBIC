@@ -1,0 +1,138 @@
+<include file="Public/header" />
+<body style="background-color:white">
+<div class="contianer" style="padding:20px">
+	<form class="row" role="form" method="post" action="__GROUP__/Luzhi/editProgramHandler" >
+		<input type="hidden" value="{$program.Id}" name="Id" />
+		<input type="hidden" value=1 name="IfUpdate" />
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> DATE </label>
+			<input type="text"  id="form-field-1"  placeholder="日期" class="col-sm-8" name="ProgramDate" onfocus="WdatePicker({firstDayOfWeek:1,onpicked:getWeek,changing:getWeek})" style="width:250px" value="{$program.ProgramDate}" />
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 周几 </label>
+			<input type="text"  id="form-field-1"  name="ProgramWeek"  placeholder="周几" class="col-sm-8" style="width:250px" value="{$program.ProgramWeek}" />
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> CHANNEL </label>
+			<select class="chosen-select" id="channelSelect" data-placeholder="频道..." style="width:250px" name="BroadChannel" />
+				<option value="">  </option>
+				<option value="一套">一套</option>
+				<option value="二套">二套</option>
+				<option value="全国">全国</option>
+				<option value="录像">录像</option>
+			</select>
+			<input type="hidden" value="{$program.BroadChannel}" id="BroadChannel" />
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> TIME </label>
+			<input type="text"  id="form-field-1"  placeholder="播出时间" class="col-sm-8"  name="BroadTime"  onfocus="WdatePicker({dateFmt:'HH:mm'})" style="width:250px" value="{$program.BroadTime}" />
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> STUDIO </label>
+			<select class="chosen-select" id="studioSelect" data-placeholder="演播室..." style="width:250px" name="VideoSite">
+				<option value="">  </option>
+				<option value="A">StudioA</option>
+				<option value="B">StudioB</option>
+				<option value="C">StudioC</option>
+			</select>
+			<input type="hidden" value="{$program.VideoSite}" id="VideoSite" />
+		</div>
+
+		<div class="col-sm-12">
+			<label for="form-field-8">PROGRAME</label>
+			<textarea class="form-control" id="form-field-8" placeholder="节目名称" rows="2" name="ProgramReq">{$program.ProgramReq}</textarea>
+		</div>
+		
+		<div class="col-sm-12 space-10"></div>
+		
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> MD </label>
+			<input type="text"  id="form-field-1"  placeholder="采购" class="col-sm-8" style="width:250px" name="MD" value="{$program.MD}" />
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> MEMO </label>
+			<input type="text" name="MEMO"  id="form-field-1"  placeholder="时长" class="col-sm-8" style="width:250px" value="{$program.MEMO}" />
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 嘉宾 </label>
+			<input type="text"  id="form-field-1"  placeholder="嘉宾" class="col-sm-8" style="width:250px" name="Guest" value="{$program.Guest}"  />
+		</div>
+
+		<br>
+		<p style="text-align: center;">
+				<button type="submit" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i>提 交</button>
+				<a id="cData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm ui-state-hover"><i class="ace-icon fa fa-times"></i>取 消</a>
+		</p>
+	</form>
+</div>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/js/ace-elements.min.js"></script>
+<script src="__PUBLIC__/js/ace.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="__PUBLIC__/laypage/laypage.js"></script>
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		//获取窗口索引
+		var index = parent.layer.getFrameIndex(window.name);
+		
+		//【取消】
+		$("#cData").click(function(){
+			//关闭填出层
+			parent.layer.closeAll();
+		});
+
+		//频道选中
+		$("#channelSelect").find("option[value='"+$("#BroadChannel").val()+"']").attr("selected","selected");
+		//演播室选中
+		$("#studioSelect").find("option[value='"+$("#VideoSite").val()+"']").attr("selected","selected");
+		
+		// chosen.js 【需放在最后，否则选择select无效】
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+	});
+	
+	//根据日期计算周几
+	function getWeek(){
+		var date=$("input[name=ProgramDate]").val();
+		var arys1= new Array();      
+	    arys1=date.split('-');     //日期为输入日期，格式为 2013-3-10
+	    var ssdate=new Date(arys1[0],parseInt(arys1[1]-1),arys1[2]);   
+	    var week;
+	    switch(ssdate.getDay()){
+	    	case 1:
+	    		week="本周一";
+	    		break;
+	    	case 2:
+	    		week="本周二";
+	    		break;
+	    	case 3:
+	    		week="本周三";
+	    		break;
+	    	case 4:
+	    		week="本周四";
+	    		break;
+	    	case 5:
+	    		week="本周五";
+	    		break;
+	    	case 6:
+	    		week="本周六";
+	    		break;
+	    	case 0:
+	    		week="本周日";
+	    		break;
+	    }
+	    $("input[name=ProgramWeek]").val(week);
+	}
+</script>
+</html>

@@ -1,0 +1,218 @@
+<include file="Public/header" />
+<!-- <link rel="stylesheet" href="__PUBLIC__/css/chosen.css" /> -->
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+			</div>
+
+
+			<!-- /section:basics/sidebar -->
+<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+	<div class="page-content">
+		<div class="page-content-area">
+			<div class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp
+								<if condition="$week eq 'this'">本周任务
+								<else />下周任务</if>
+							</div>
+							<div>
+								<div class="col-xs-6">
+									<button class="btn btn-sm btn-pink" style="margin:5px 0">
+										快速分配
+										<i class="ace-icon fa fa-share icon-on-right align-middle"></i>
+									</button>
+								</div>
+							
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>MEMO</th>
+											<th>流程跟踪</th>
+											<th>字幕难度</th>
+											<th>字幕人员</th>
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="program" id="vo">
+										<tr>
+											<td>{$vo.ProgramDate}</td>
+											<td>{$vo.ProgramWeek}</td>
+											<td>{$vo.BroadChannel}</td>
+											<td>{$vo.BroadTime}</td>
+											<td>{$vo.VideoSite}</td>
+											<td>{$vo.ProgramReq}</td>
+											<td>{$vo.PD}</td>
+											<td>{$vo.MEMO}</td>
+											<td style="width:200px;">
+												<div class="progress progress-striped pos-rel" data-percent="60%" style="margin-bottom:0;">
+													<div class="progress-bar progress-bar-purple" style="width:60%;"></div>
+												</div>
+											</td>
+											<!-- <td><button class="btn btn-xs btn-primary">选择标签</button></td> -->
+											<if condition="$vo.CaptionHardGrade eq 'NEW'"><td>新</td>
+											<elseif condition="$vo.CaptionHardGrade eq 'MODIFY'" /><td>修</td>
+											<elseif condition="$vo.CaptionHardGrade eq 'OLD'" /><td>调</td>
+											<else /><td></td></if>
+											
+											<if condition="($字幕组长 eq '字幕组长') AND ($vo.IfCaptionSelected eq null)" >
+											<td><button class="btn btn-xs btn-info" role="caption" programID="{$vo.Id}">排班</button></td>
+											<elseif condition="($字幕组长 eq '字幕组长') AND ($vo.IfCaptionSelected eq 1)" />
+											<td><if condition="$vo.Caption neq null" >({$vo.Caption})</if> <button class="btn btn-xs btn-success" role="caption" programID="{$vo.Id}">人员修改</button></td>
+											<else />
+											</if>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+					<br>	
+					<!-- 排班人员表格 -->
+					<div class="room_borderWrap">
+						<div id="page1" style="text-align: center;"></div>
+					</div>
+					<!-- 会议室表格 End-->
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content-area -->
+	</div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+	<script type="text/javascript">
+	//操作 0选择会议室 1修改会议室
+	var operate;
+		jQuery(function($){
+			//加载layer扩展方法
+			layer.config({
+			    extend: 'extend/layer.ext.js'
+			});       
+			$('.room_borderWrap').slideUp();
+			$('#table1').dataTable({
+				searching: true,
+				lengthChange: false,
+				lengthMenu: [8],
+				info: false,
+				stateSave: true,//保存表格状态
+				language:{
+		            "url": "/Public/font/zh_CN.txt"
+		    	}
+			});
+
+		//字幕排班
+		$("button[class='btn btn-xs btn-info']").click(function(){
+			var layerName="/index.php/Arrange/arrange_layer?layerName="+$(this).attr("role")+"&programID="+$(this).attr("programID");
+			layer.open({
+			    type: 2,
+			    title:"字幕人员排班",
+			    scrollbar: false,
+			    area: ['400px', '600px'],
+			    content:  layerName,
+			    maxmin: false,
+			    shadeClose:true,
+			});
+		});
+		
+		//字幕编辑层
+		$("button[class='btn btn-xs btn-success']").click(function(){
+			var layerName="/index.php/Arrange/arrange_edit_layer?layerName="+$(this).attr("role")+"&programID="+$(this).attr("programID");
+			layer.open({
+			    type: 2,
+			    title:"字幕人员修改",
+			    scrollbar: false,
+			    area: ['400px', '600px'],
+			    content: layerName,
+			    maxmin: false,
+			    shadeClose:true,
+			});
+		});
+		
+		//标签类型
+		$("button[class='btn btn-xs btn-primary']").click(function(){
+			layer.open({
+			    type: 2,
+			    title:"后期制作排班",
+			    scrollbar: false,
+			    area: ['400px', '200px'],
+			    content:  '/index.php/Arrange/label_layer',
+			    maxmin: false,
+			    shadeClose:true,
+			});
+		});
+		
+		//快速分配
+		$("button[class='btn btn-sm btn-pink']").click(function(){
+			var week="{$week}";
+			layer.open({
+			    type: 2,
+			    title:"选择快速分配人员",
+			    scrollbar: false,
+			    area: ['400px', '600px'],
+			    content:  '/index.php/Arrange/quick_assign?type=caption&week='+week,
+			    maxmin: false,
+			    shadeClose:true,
+			});
+		});
+	});
+	</script>
+	</body>
+</html>

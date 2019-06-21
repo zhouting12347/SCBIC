@@ -1,0 +1,248 @@
+<include file="Public/header" />
+<!-- <link rel="stylesheet" href="__PUBLIC__/css/chosen.css" /> -->
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar                  responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header" style="margin-bottom:30px;padding-bottom:10px">
+							<h1>
+								录制任务表单
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									创建一个新任务
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						<div class="row">
+							<div class="col-xs-12">
+								<form action="__GROUP__/Luzhi/addSingleTaskHandler" id="form1" class="form-horizontal" role="form" method="post">
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1"> 任务名称 </label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" name="TaskName" placeholder="任务名称" class="col-xs-10 col-sm-7">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > Date </label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" placeholder="日期" class="col-xs-10 col-sm-7" name="ProgramDate" onclick="WdatePicker({firstDayOfWeek:1,onpicked:getWeek,changing:getWeek})">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1"> 周几</label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" name="ProgramWeek" placeholder="" class="col-xs-10 col-sm-7" readonly="readonly">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > Channel </label>
+										<div class="col-sm-8">
+											<div class="col-sm-7" style="padding:0">
+												<select class="chosen-select" id="form-field-1" data-placeholder="频道..." name="BroadChannel">
+													<option value="">  </option>
+													<option value="一套">一套</option>
+													<option value="二套">二套</option>
+													<option value="全国">全国</option>
+													<option value="录像">录像</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > Time</label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" placeholder="播出时间" class="col-xs-10 col-sm-7" name="BroadTime" onclick="WdatePicker({dateFmt:'H:mm:ss'})">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > Studio </label>
+										<div class="col-sm-8">
+											<div class="col-sm-7" style="padding:0">
+												<select class="chosen-select" data-placeholder="演播室..." name="VideoSite">
+													<option value="">  </option>
+													<option value="A">StudioA</option>
+													<option value="B">StudioB</option>
+													<option value="C">StudioC</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > Programe </label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" placeholder="节目名称" class="col-xs-10 col-sm-7" name="ProgramReq">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > MD </label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" placeholder="采购" class="col-xs-10 col-sm-7" name="MD">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > MEMO </label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" placeholder="时长" class="col-xs-10 col-sm-7" name="MEMO">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-4 control-label no-padding-right" for="form-field-1" > 嘉宾 </label>
+										<div class="col-sm-8">
+											<input type="text" id="form-field-1" placeholder="嘉宾" class="col-xs-10 col-sm-7" name="Guest">
+										</div>
+									</div>
+										
+									<div class="space-10"></div>
+									
+									<div class="col-sm-4 col-sm-offset-4 center">
+										<button class="btn btn-info" type="submit" id="submit">
+											<i class="ace-icon fa fa-check bigger-110"></i>
+											提交
+										</button>
+										<button class="btn" type="reset" style="margin-left:20px">
+											<i class="ace-icon fa fa-undo bigger-110"></i>
+											重置
+										</button>
+									</div>
+									
+									<input type="hidden" name="__hash__" value="04b77415c4f4f5575b57d22275759ce1">
+								</form>
+							</div><!-- col-xs-12 -->
+						</div><!-- row -->
+					</div><!-- page-content-area -->
+				</div><!-- page-content -->
+			</div><!-- /.main-content -->
+			
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($) {
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+		$(window)
+		.off('resize.chosen')
+		.on('resize.chosen', function() {
+			$('.chosen-select').each(function() {
+				 var $this = $(this);
+				 $this.next().css({'width': $this.parent().width()});
+			})
+		}).trigger('resize.chosen');
+		
+		//防止多次点击重复提交
+		$("#form1").submit(function(){  
+			$("#submit").attr("disabled","disabled");  
+		});  
+		
+	});
+	
+	//根据日期计算周几
+	function getWeek(){
+		var date=$("input[name=ProgramDate]").val();
+		var arys1= new Array();      
+	    arys1=date.split('-');     //日期为输入日期，格式为 2013-3-10
+	    var ssdate=new Date(arys1[0],parseInt(arys1[1]-1),arys1[2]);   
+	    var week;
+	    switch(ssdate.getDay()){
+	    	case 1:
+	    		week="周一";
+	    		break;
+	    	case 2:
+	    		week="周二";
+	    		break;
+	    	case 3:
+	    		week="周三";
+	    		break;
+	    	case 4:
+	    		week="周四";
+	    		break;
+	    	case 5:
+	    		week="周五";
+	    		break;
+	    	case 6:
+	    		week="周六";
+	    		break;
+	    	case 0:
+	    		week="周日";
+	    		break;
+	    }
+	    $("input[name=ProgramWeek]").val(week);
+	}
+</script>
+	</body>
+</html>

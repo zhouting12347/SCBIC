@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<!-- 表格 -->
+			<div class="row">
+				<div class="col-md-2"></div>
+  				<div class="col-md-8">
+				   	<table class="table table-striped" id="TB01">
+				   		<thead>
+				   			<tr>
+								<th>频道名称</th>
+								<th>发生时间</th>
+							</tr>
+				   		</thead>
+				   		<tbody>
+				   			<volist name="list" id="vo">
+				   				<tr>
+				   					<td>{$vo.programName}</td>
+				   					<td>{$vo.createTime}</td>
+				   				</tr>
+				   			</volist>
+				   		</tbody>
+					</table>
+					<div id="page">{$page}<a page="1"></a></div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script>
+jQuery(function($){
+	$("#page a").click();
+});
+
+$("#page").delegate("a","click",function(){
+	var nowPage=$(this).attr('page');
+	var data="nowPage="+nowPage;
+	$.ajax({
+		url: '/index.php/Home/Public/ajaxGetCheckfile',
+		dataType: 'json',
+		type: 'POST',
+		cache:false,
+		data:data,
+		success: function(msg) {
+			if(msg.status){
+				$('#page').html(msg.data[0]);
+				$('#TB01 tbody').html(msg.data[1]);
+			}else{
+				
+			}
+		},
+		error:function(){
+			alert("发生错误！");
+		}
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<include file="Public/header" />
+<body style="background-color:white">
+<div class="contianer" style="padding:20px">
+	<form class="row" role="form" method="post" action="__GROUP__/Director/outsideBorrowHandler">
+		<input type="hidden" name="Id" value="{$programID}" />
+		<input type="hidden" name="IfBorrowed" value="1" />
+		<input type="hidden" name="IfGoOut" value="1" />
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 录制日期 </label>
+			<input type="text"  id="form-field-1"  placeholder="选择录制日期" class="col-sm-8"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:250px" name="OutDate" />
+		</div>
+
+		<div class="col-sm-12" style="margin-bottom:10px;">
+			<span style="margin-right:20px">
+				<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;vertical-align:top;"> 灯光 </label>
+					<input name="IfLight" class="ace ace-switch ace-switch-5" type="checkbox" value="1" />
+					<span class="lbl"></span>
+				</label>
+			</span>
+		</div>
+		<div class="col-sm-12" style="margin-bottom:10px;">
+			<span style="margin-right:20px">
+				<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;vertical-align:top;"> 摄像 </label>
+					<input name="IfCamera" class="ace ace-switch ace-switch-5" type="checkbox" value="1" />
+					<span class="lbl"></span>
+				</label>
+			</span>
+		</div>
+		<div class="col-sm-12" style="margin-bottom:10px;">
+			<span style="margin-right:20px">
+				<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;vertical-align:top;"> 小蜜蜂 </label>
+					<input name="IfBee" class="ace ace-switch ace-switch-5" type="checkbox" value="1" />
+					<span class="lbl"></span>
+				</label>
+			</span>
+		</div>
+
+	
+		<div class="col-sm-12">
+			<label for="form-field-8">备注信息</label>
+			<textarea class="form-control" id="form-field-8" placeholder="备注信息" rows="3" name="GoOutMemo"></textarea>
+		</div>
+		<br>
+		<p style="text-align: center;">
+				<button type="submit" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i>提 交</button>
+				<a id="cData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm ui-state-hover"><i class="ace-icon fa fa-times"></i>取 消</a>
+		</p>
+	</form>
+</div>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/js/ace-elements.min.js"></script>
+<script src="__PUBLIC__/js/ace.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="__PUBLIC__/laypage/laypage.js"></script>
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		//获取窗口索引
+		var index = parent.layer.getFrameIndex(window.name);
+		//【提交】
+		$("#sData").click(function(){
+			parent.layer.msg("操作成功！",{time:1300});
+			parent.layer.close(index);
+		});
+		
+		//【取消】
+		$("#cData").click(function(){
+			//关闭填出层
+			parent.layer.closeAll();
+		});
+
+		// chosen.js
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+		//resize the chosen on window resize
+		// $(window)
+		// .off('resize.chosen')
+		// .on('resize.chosen', function() {
+		// 	$('.chosen-select').each(function() {
+		// 		 var $this = $(this);
+		// 		 $this.next().css({'width': $this.parent().width()});
+		// 	})
+		// }).trigger('resize.chosen'); 
+	});
+</script>
+</html>

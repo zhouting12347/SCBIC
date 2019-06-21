@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/barstyle.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/jquery-confirm.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 tbody{
+			height:650px;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+		
+		table tbody {
+	        display:block;
+	        height:300px;
+	        overflow-y:scroll;
+	    }
+	    table thead, tbody tr {
+	        display:table;
+	        width:100%;
+	        table-layout:fixed;
+	    }
+	    table thead {
+	        width: calc( 100% - 1em )
+	    }
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:15px;">
+	<div class="row">
+<!-- 左边栏 -->
+		<div class="col-md-12 col-xs-12">
+		  	<div class="panel" style="background-color:#E8E8E8;">
+		  		<div class="panel-heading" style="background-color:#C60000;"><h3>直播流查看</h3></div>
+		  		<div class="panel-body" style="padding:25px;">
+		  			<div class="row">
+		  				<div class="col-md-6">
+		  					<div class="row">
+			  												<div class="form-group col-md-8">
+			  						<div class="input-group">
+								      	<input type="text" class="form-control" placeholder="Search for..." id="keyword">
+								      	<span class="input-group-btn">
+								        	<button class="btn btn-default" type="button" id="search">查询</button>
+								      	</span>
+								    </div>
+								</div>
+			  					<div class="form-group col-md-2">
+									<select id="source" class="form-control">
+										<option value="all">全部</option>
+										<option value="开路">开路</option>
+										<option value="有线">有线</option>
+									</select>
+								</div>
+								<div class="form-group col-md-2">
+									<button type="button" class="btn btn-primary" id="add"  data-toggle="modal" data-target=".YTDJ" id="add">管理</button>
+								</div>
+<!-- 添加直播流地址弹窗 -->	
+								<form id="form1" method="post">
+									<div class="modal fade YTDJ" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+										<div class="modal-dialog modal-mi"  role="document" style="margin-top:50px;margin-right:1050px;width:800px;height:500px;">
+										    <div class="modal-content">
+										      	<div class="panel-heading" style="background-color:#E41B6B;"><h3>添加直播流</h3></div>
+										      	<div class="panel-body" style="padding:25px;">
+										  			<div class="row">
+										  				<div class="col-xs-6">
+														   	<div class="form-inline">
+															  <div class="form-group">
+															    <label for="YTRQ" style="margin-right:5px">频道名称：</label>
+															    <input type="text" class="form-control" style="width:300px;" name="programName" >
+															  </div>
+															</div>
+														</div>
+														<div class="col-xs-6">
+														   	<div class="form-inline">
+															  <div class="form-group">
+															    <label for="JSSJ" style="margin-right:5px">直播地址：</label>
+															    <input type="text" class="form-control"  style="width:300px;" name="address" >
+															  </div>
+															</div>
+														</div>
+													</div>
+													<br>
+													<div class="row">
+										  				<div class="col-xs-6">
+														   	<div class="form-inline">
+															  <div class="form-group">
+															    <label for="JSSJ" style="margin-right:5px">直播来源：</label>
+															    <select class="form-control"  style="width:300px;" name="source" >
+																	<option value="开路">开路</option>
+																	<option value="有线">有线</option>
+																</select>
+															  </div>
+															</div>
+														</div>
+														<div class="col-xs-6"></div>
+													</div>
+													<br>
+													<div class="row">
+										  				<div class="col-xs-3 center"></div>
+										  				<div class="col-xs-3 center"><button type="button" class="btn btn-primary btn-lg btn-block" id="save" value="save">保存</button></div>
+										  				<div class="col-xs-3 center"><button type="reset" class="btn btn-success btn-lg btn-block" >重置</button></div>
+										  				<div class="col-xs-3 center"></div>
+													</div>
+													<br>
+													<div class="row">
+								  						<div class="col-xs-6">
+										  					<div class="input-group">
+														      <input type="text" class="form-control" placeholder="Search for..." id="liveKeyword">
+														      <span class="input-group-btn">
+														        	<button class="btn btn-default" type="button" id="liveSearch">查询</button>
+														      </span>
+												   		 	</div>
+												   		 </div>
+												   		 <div class="col-xs-6"></div>
+								  					</div>
+								  					<br>
+													<div class="row">
+										  				<div class="col-xs-12">
+														   	<table class="table table-striped" id="TB02">
+														   		<thead>
+														   			<tr>
+																		<th>频道名称</th>
+																		<th>直播地址</th>
+																		<th>线路</th>
+																		<th>操作</th>
+																	</tr>
+														   		</thead>
+														   		<tbody>
+														   		</tbody>
+															</table>
+															<div id="livePage"></div>
+														</div>
+													</div>
+												</div>
+										    </div>
+										</div>
+									</div>
+								</form>
+<!-- 添加直播流地址弹窗 结束-->				
+							</div>
+							<div class="row">
+			  					<div class="col-md-12" >
+								   <table class="table table-striped" id="TB01">
+								   		<thead>
+								   			<tr>
+												<th>频道名称</th>
+												<th>直播地址</th>
+												<th>播放</th>
+											</tr>
+								   		</thead>
+								   		<tbody>
+								   			<volist name="live" id="vo">
+								   				<tr id="{$vo.id}">
+								   					<td>{$vo.programName}</td>
+								   					<td>{$vo.address}</td>
+								   					<td><button type='button' class='btn btn-info'>主</button>
+								   							&nbsp<button type='button' class='btn btn-success 1'>1</button>
+								   							&nbsp<button type='button' class='btn btn-success 2'>2</button>
+								   							&nbsp<button type='button' class='btn btn-success 3'>3</button>
+								   					</td>
+								   				</tr>
+								   			</volist>
+								   		</tbody>
+									</table>
+									<div id="page"></div>
+								</div>
+							</div>
+		  				</div>
+		  				<div class="col-md-6">
+		  					<div class="row">
+		  						<div class="col-xs-12">
+									<p id="liveMain"><主></p>
+				  					<object type='application/x-vlc-plugin' id='vlcBig' events='True'
+								       classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' width="100%" height="380" >
+										  <param name="MRL" ref value="">
+								          <param name='volume' value='50' />
+								          <param name='autoplay' value='true' />
+								          <param name='loop' value='false' />
+								          <param name='fullscreen' value='true' />
+										  <param name='toolbar' value='true' />
+									</object>
+					  			</div>
+		  					</div>
+		  					<br>
+		  					<div class="row">
+		  						<div class="col-xs-4">
+									<p id="live1"><1></p>
+									<object type='application/x-vlc-plugin' id='vlc1' events='True'
+								       classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' width="100%" height="250" >
+										  <param name="MRL" ref value="">
+								          <param name='volume' value='50' />
+								          <param name='autoplay' value='true' />
+								          <param name='loop' value='false' />
+								          <param name='fullscreen' value='true' />
+										  <param name='toolbar' value='true' />
+									</object>
+					  			</div>
+					  			<div class="col-xs-4">
+									<p id="live2"><2></p>
+				  					<object type='application/x-vlc-plugin' id='vlc2' events='True'
+								       classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' width="100%" height="250" >
+										  <param name="MRL" ref value="">
+								          <param name='volume' value='50' />
+								          <param name='autoplay' value='true' />
+								          <param name='loop' value='false' />
+								          <param name='fullscreen' value='true' />
+										  <param name='toolbar' value='true' />
+									</object>  
+					  			</div>						
+					  			<div class="col-xs-4">
+									<p id="live3"><3></p>
+				  					<object type='application/x-vlc-plugin' id='vlc3' events='True'
+								       classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' width="100%" height="250" >
+										  <param name="MRL" ref value="">
+								          <param name='volume' value='50' />
+								          <param name='autoplay' value='true' />
+								          <param name='loop' value='false' />
+								          <param name='fullscreen' value='true' />
+										  <param name='toolbar' value='true' />
+									</object> 
+					  			</div>
+		  					</div>
+		  				</div>
+		  			</div>
+		  		</div>
+			</div>
+		</div>
+<!-- 左边栏结束 -->
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script src="__PUBLIC__/js/live.js"></script>
+<script src="__PUBLIC__/js/jquery-confirm.js"></script>
+<script>
+    var videoURL="{$Think.config.STREAM_URL}"; //流文件播放地址
+	var liveMain;
+	var live1;
+	var live2;
+	var live3;
+</script>
+</body>
+</html>

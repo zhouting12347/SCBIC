@@ -1,0 +1,73 @@
+<include file="Public/header" />
+<body style="padding:10px;">
+	<form class="row col-xs-12" method="post" action="__GROUP__/RBAC/rightAccessHandler">
+		<volist name='nodes' id='vo'>
+			<h3 class="row col-xs-12 blue">
+				{$vo.title}
+				<small style="margin-left:15px">
+					<label class="middle">
+						<input class="ace CheckedAll" type="checkbox" value={$vo.id} group={$vo.id} >
+						<span class="lbl"> 全选 / 取消</span>
+					</label>
+				</small>
+			</h3>
+			<hr class="col-xs-12" style="margin:0">
+				<volist name='vo[0]' id='k'>
+					<span class="col-xs-3" style="margin-top:10px">
+						<label class="middle">
+							<input class="ace" name="{$vo.id}[]" type="checkbox" value={$k.id} group={$vo.id}>
+							<span class="lbl">{$k.title}</span>
+						</label>
+					</span>
+				</volist>
+			<hr class="col-xs-12" style="margin:8px 0">
+		</volist>
+		<input type="hidden"  name='roleId'  value={$roleId} />
+		<div class="col-xs-12 center">
+			<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>提交</button>
+		</div>
+	</form>
+	<volist name="rightNodes" id="vo">
+		<input type="hidden"  id="rightNodes" value={$vo.node_id} />
+	</volist>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery(function($) {
+		$("input[id='rightNodes']").each(function(i){
+			   $("input[value='"+$(this).val()+"']").prop("checked","checked");
+		});
+		
+		
+		$(".CheckedAll").click(function(){
+			var group=$(this).attr('group');
+			$("[group="+group+"]:checkbox").prop("checked",this.checked);
+			$("input:not(.CheckedAll)[group="+group+"]:checkbox").click(function(){
+				var $tmp = $("input:not(.CheckedAll)[group="+group+"]:checkbox");
+				var flag = $tmp.length == $tmp.filter(":checked").length;
+				$(".CheckedAll[group='"+group+"']").prop("checked",flag);
+			});
+		});
+	
+
+		
+		/* $(".CheckedAll").click(function(){
+			$("[name=items1]:checkbox").prop("checked",this.checked);
+		});
+		$("[name=items1]:checkbox").click(function(){
+			var $tmp = $("[name=items1]:checkbox");
+			var flag = $tmp.length == $tmp.filter(":checked").length;
+			$(".CheckedAll").prop("checked",flag);
+		});
+
+		$(".CheckedAll2").click(function(){
+			$("[name=items2]:checkbox").prop("checked",this.checked);
+		});
+		$("[name=items2]:checkbox").click(function(){
+			var $tmp = $("[name=items2]:checkbox");
+			var flag = $tmp.length == $tmp.filter(":checked").length;
+			$(".CheckedAll2").prop("checked",flag);
+		}); */
+	})
+</script>
+</body>
+</html>

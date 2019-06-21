@@ -1,0 +1,226 @@
+<include file="Public/header" />
+<!-- <link rel="stylesheet" href="__PUBLIC__/css/chosen.css" /> -->
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+					<!-- <div class="nav-search" id="nav-search">
+						<form class="form-search">
+							<span class="input-icon">
+								<input type="text" placeholder="设备查询 ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+								<i class="ace-icon fa fa-search nav-search-icon"></i>
+							</span>
+						</form>
+					</div> -->
+					<br>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp
+								<if condition="$week eq 'this'">本周任务
+								<else />下周任务</if>
+							</div>
+							<!-- <div class="dataTables_borderWrap"> -->
+							<div>
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>SH</th>
+											<th>MD</th>
+											<th>动影像录制时间</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="program" id="vo">
+										<tr>
+											<td>{$vo.ProgramDate}</td>
+											<td>{$vo.ProgramWeek}</td>
+											<td>{$vo.BroadChannel}</td>
+											<td>{$vo.BroadTime}</td>
+											<td>{$vo.VideoSite}</td>
+											<td>{$vo.ProgramReq}</td>
+											<td>{$vo.PD}</td>
+											<td>{$vo.SH}</td>
+											<td>{$vo.MD}</td>
+											<td>{$vo.MovieDate}<if condition="$vo.MovieHalfDay eq 'am'"> (上午)<elseif condition="$vo.MovieHalfDay eq 'pm'"/> (下午)</if></td>
+											<td>
+												<if condition="$vo.MovieHalfDay eq null" >
+													<button class="btn btn-xs btn-warning" programID="{$vo.Id}" >动影像日期</button>
+												<elseif condition="$vo.IfOutEnd neq 1" />
+													<button  class="btn btn-xs btn-primary" programID="{$vo.Id}" >拍摄小结</button>
+												</if>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+					<br>	
+			
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		//加载layer扩展方法
+		layer.config({
+		    extend: 'extend/layer.ext.js'
+		});       
+		$("#send1").slideUp(); 
+		$('#table1').dataTable({
+			searching: true,
+			lengthChange: false,
+			lengthMenu: [5],
+			info: true,
+			stateSave: true,//保存表格状态
+			language:{
+	            "url": "/Public/font/zh_CN.txt"
+	    	}
+		});
+		
+		
+		//【外拍总结】按钮
+		$("button[class='btn btn-xs btn-primary']").click(function(){
+			var programID=$(this).attr('programID');
+			var index = layer.open({
+			    type: 2,
+			    title:"外拍总结",
+			    content:'/index.php/Director/outside_summary_layer?programID='+programID,
+			    area: ['400px', '380px'],
+			    maxmin: false
+			});
+		});
+		
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+		//resize the chosen on window resize
+		$(window)
+		.off('resize.chosen')
+		.on('resize.chosen', function() {
+			$('.chosen-select').each(function() {
+				 var $this = $(this);
+				 $this.next().css({'width': $this.parent().width()});
+			})
+		}).trigger('resize.chosen');
+	});
+	
+	//【查看已借用设备】按钮
+	$("button[class='btn btn-xs btn-pink']").click(function(){
+		var programID=$(this).attr("programID");
+		$.ajax({
+			url: '/index.php/Director/checkBorrowEquipment?programID='+programID,
+			dataType: 'json',
+			type: 'GET',
+			success: function(msg) {
+				if(msg.status){
+					//操作成功
+					layer.open({
+					    title: '已借用的设备',
+					    content: msg.data
+					});      
+				}
+			}
+		});
+	});
+	
+	//【动影像日期】 按钮	
+	$("button[class='btn btn-xs btn-warning']").click(function(){
+		var programID=$(this).attr("programID");
+		var index = layer.open({
+		    type: 2,
+		    title:"动影像日期",
+		    content:'/index.php/Director/moving_time_layer?programID='+programID,
+		    area: ['450px', '400px'],
+		    maxmin: false
+		});
+	});
+	
+	</script>
+</body>
+</html>

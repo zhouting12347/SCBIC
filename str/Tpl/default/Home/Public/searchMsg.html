@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+		table tbody {
+	        display:block;
+	    }
+	    table thead, tbody tr {
+	        display:table;
+	        width:100%;
+	        table-layout:fixed;
+	    }
+	    table thead {
+	        width: calc( 100% - 1em )
+	    }
+		.nav li a {
+			color:white;
+	    }
+	    .nav li a:hover{
+			background-color: #545454;
+	    }
+		.dropdown-menu{
+			background-color: gray;
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:15px;">
+	<div class="row" style="background-color: #C60000;">
+		<!--nav-->
+		<div class="col-md-6 col-xs-6">
+			<ul class="nav nav-pills">
+	             <li class="active"><a href="__GROUP__/Msg/searchMsg">短信查询</a></li>
+        	 </ul>
+		</div>
+		<!--end nav-->
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-2 col-xs-2" >
+			<div class="input-group">
+				<input class="form-control"  type="text" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" placeholder="选择日期..."  id="date" />
+			</div>
+		</div>
+		<div class="col-md-2 col-xs-2">
+			<div class="input-group" >
+				<select id="msgType" class="form-control">
+					<option value="2">全部</option>
+					<option value="0">预警短信</option>
+					<option value="1">消息提醒</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-2 col-xs-2" >
+			<div class="input-group">
+		      	<input type="text" class="form-control" placeholder="短信内容..." id="keyword">
+		      	<span class="input-group-btn">
+		        	<button class="btn btn-default" type="button" id="search">查询</button>
+		      	</span>
+		    </div>
+		</div>
+	</div>
+	<br>	
+	<!-- 用户表 -->
+	<div class="row">
+		<div class="col-md-12 col-xs-12" >
+		   <table class="table table-striped" id="TB01">
+		   		<thead>
+		   			<tr>
+						<th>日期</th>
+						<th>时间</th>
+						<th>类型</th>
+						<th style="width:800px;text-align:center;">短信内容</th>
+						<th>接收组</th>
+						<th>发送结果</th>
+						<th>返回代码</th>
+						<th>操作</th>
+					</tr>
+		   		</thead>
+		   		<tbody>
+		   			
+		   		</tbody>
+			</table>
+			<div id="page"></div>
+		</div>
+	</div>
+	<!-- end 用户表 -->
+	
+
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script>
+$(function(){
+	//查询用户
+	$("#search").click(function(){
+		var data="&nowPage=1&condition=1&keyword="+$("#keyword").val()+"&date="+$("#date").val()+"&type="+$("#msgType").val();
+		$.ajax({
+			url: '/index.php/Msg/ajaxGetMessage',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:data,
+			success: function(msg) {
+				if(msg.status){
+					$('#page').html(msg.data[0]);
+					$('#TB01 tbody').html(msg.data[1]);
+				}else{
+					
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+	//分页ajax读取
+	$("#page").delegate("a","click",function(){
+		var nowPage=$(this).attr('page');
+		var data="nowPage="+nowPage;
+		$.ajax({
+			url: '/index.php/Home/Msg/ajaxGetMessage',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:data,
+			success: function(msg) {
+				if(msg.status){
+					$('#page').html(msg.data[0]);
+					$('#TB01 tbody').html(msg.data[1]);
+				}else{
+					
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+	//短信详情
+	$("#TB01").delegate("button[class='btn btn-warning']","click",function(){
+		var id=$(this).attr('id');
+		var title=$(this).parent().parent().find("td:eq(0)").html()+" "+$(this).parent().parent().find("td:eq(1)").html()+
+		" ["+$(this).parent().parent().find("td:eq(3)").html()+"]";
+		var index = layer.open({
+		    type: 2,
+		    title:title,
+		    content: '/index.php/Public/msgDetails?id='+id,
+		    area: ['1000px', '850px'],
+		    shift: 2,
+			offset: ['0px', '300px'],
+		});
+	});
+
+$("#search").click();
+	
+});
+</script>
+</body>
+</html>

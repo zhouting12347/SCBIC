@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+		table tbody {
+	        display:block;
+	    }
+	    table thead, tbody tr {
+	        display:table;
+	        width:100%;
+	        table-layout:fixed;
+	    }
+	    table thead {
+	        width: calc( 100% - 1em )
+	    }
+		.nav li a {
+			color:white;
+	    }
+	    .nav li a:hover{
+			background-color: #545454;
+	    }
+		.dropdown-menu{
+			background-color: gray;
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:15px;">
+	<div class="row" style="background-color: #C60000;">
+		<!--nav-->
+		<div class="col-md-6 col-xs-6">
+			<ul class="nav nav-pills">
+	             <li><a href="__GROUP__/Msg/sendMsg">短信发送</a></li>
+	             <li><a href="__GROUP__/Msg/searchMsg">短信查询</a></li>
+	             <li class="dropdown active" >
+	             <a class="dropdown-toggle" data-toggle="dropdown" href="#">人员分组 <b class="caret"></b></a>
+	             <ul class="dropdown-menu">
+	                <li><a href="__GROUP__/Msg/userManage">人员管理</a></li>
+	                <li><a href="__GROUP__/Msg/groupManage">分组管理</a></li>
+	                <li><a href="__GROUP__/Msg/userGroupRel">人员分组关系</a></li>
+	             </ul>
+	             </li>
+        	 </ul>
+		</div>
+		<!--end nav-->
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-6 col-xs-6" >
+			<button type="button" class="btn btn-primary" id="add"  data-toggle="modal" data-target=".YTDJ" >添加分组</button>
+		</div>
+	</div>
+	<br>	
+	<!-- 分组表 -->
+	<div class="row">
+		<div class="col-md-12 col-xs-12" >
+		   <table class="table table-striped" id="TB01">
+		   		<thead>
+		   			<tr>
+						<th>分组名称</th>
+						<th>备注</th>
+						<th>操作</th>
+					</tr>
+		   		</thead>
+		   		<tbody>
+		   			<volist name="group" id="vo">
+		   				<tr>
+		   					<td>{$vo.name}</td>
+		   					<td>{$vo.comment}</td>
+		   					<td><button type='button' class='btn btn-info' id={$vo.id} data-toggle='modal' data-target='.YTDJ2' >编辑</button>
+		   							<button type='button' class='btn btn-danger' id={$vo.id} >删除</button>
+		   					</td>
+		   				</tr>
+		   			</volist>
+		   		</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- end 分组表 -->
+	
+<!-- 添加分组弹窗 -->	
+<form id="form1" method="post">
+	<div class="modal fade YTDJ" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-mi"  role="document" style="width:1000px;margin-top: 200px;">
+		    <div class="modal-content">
+		      	<div class="panel-heading" style="background-color:#F27D09;"><h3>添加分组</h3></div>
+		      	<div class="panel-body" style="padding:25px;">
+		  			<div class="row">
+		  				<div class="col-xs-6">
+						   	<div class="form-inline">
+							  <div class="form-group">
+							    <label for="YTRQ" style="margin-right:5px">分组名称：</label>
+							    <input type="text" class="form-control" style="width:300px;" name="name" >
+							  </div>
+							</div>
+						</div>
+						<div class="col-xs-6"></div>  
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xs-12">
+		  					<textarea class="form-control" rows="2" placeholder="备注" name="comment"></textarea>
+		  				</div>
+					</div>
+					<br>
+					<div class="row">
+		  				<div class="col-xs-3 center"></div>
+		  				<div class="col-xs-3 center"><button type="button" class="btn btn-primary btn-lg btn-block" id="save" value="save">提交</button></div>
+		  				<div class="col-xs-3 center"><button type="reset" class="btn btn-success btn-lg btn-block" >重置</button></div>
+		  				<div class="col-xs-3 center"></div>
+					</div>
+				</div>
+		    </div>
+		</div>
+	</div>
+</form>
+<!-- 添加分组弹窗 结束-->				
+
+<!-- 编辑分组弹窗 -->	
+<form id="form2" method="post">
+	<div class="modal fade YTDJ2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-mi"  role="document" style="width:1000px;margin-top: 200px;">
+		    <div class="modal-content">
+		      	<div class="panel-heading" style="background-color:#F27D09;"><h3>编辑分组</h3></div>
+		      	<div class="panel-body" style="padding:25px;">
+		  			<div class="row">
+		  				<div class="col-xs-6">
+						   	<div class="form-inline">
+							  <div class="form-group">
+							    <label for="YTRQ" style="margin-right:5px">分组名称：</label>
+							    <input type="text" class="form-control" style="width:300px;" name="name" >
+							  </div>
+							</div>
+						</div>
+						<div class="col-xs-6"></div>  
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xs-12">
+		  					<textarea class="form-control" rows="2" placeholder="备注" name="comment"></textarea>
+		  				</div>
+					</div>
+					<br>
+					<input type="hidden" id="groupId" name="id" />
+					<div class="row">
+		  				<div class="col-xs-3 center"></div>
+		  				<div class="col-xs-3 center"><button type="button" class="btn btn-primary btn-lg btn-block" id="edit" value="save">提交</button></div>
+		  				<div class="col-xs-3 center"><button type="reset" class="btn btn-success btn-lg btn-block" >重置</button></div>
+		  				<div class="col-xs-3 center"></div>
+					</div>
+				</div>
+		    </div>
+		</div>
+	</div>
+</form>
+<!-- 编辑分组弹窗 结束-->				
+	
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script>
+$(function (){
+	//添加分组操作
+	$("#save").click(function(){
+		$.ajax({
+			url: '/index.php/Msg/addGroupHandler',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:$("#form1").serialize(),
+			success: function(msg){
+				if(msg.status){
+					$('#form1')[0].reset(); //重置表单
+					alert("操作成功");
+					location.reload();
+				}else{
+					alert("操作失败");
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+
+
+	//编辑分组
+	$("#TB01 tbody").delegate("button[class='btn btn-info']","click",function(){
+		var id=$(this).attr('id');
+		var data="id="+id;
+		$.ajax({
+			url: '/index.php/Home/Msg/getEditGroup',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:data,
+			success: function(msg) {
+				if(msg.status){
+					$('#form2')[0].reset(); //重置表单
+					$("#groupId").val("");
+					$("#form2 input[name='name']").val(msg.data.name);
+					$("#form2 textarea[name='comment']").val(msg.data.comment);
+					$("#groupId").val(id);
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+	//编辑操作
+	$("#edit").click(function(){
+		$.ajax({
+			url: '/index.php/Msg/editGroupHandler',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:$("#form2").serialize(),
+			success: function(msg){
+				if(msg.status){
+					alert("操作成功");
+					location.reload();
+				}else{
+					alert("操作失败");
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+	//删除分组
+	$("#TB01 tbody").delegate("button[class='btn btn-danger']","click",function(){
+		 var r=confirm("是否删除该组？")
+		  if(r==true){
+		    var id=$(this).attr("id");
+		    var data="id="+id;
+		    $.ajax({
+				url: '/index.php/Msg/delGroupHandler',
+				dataType: 'json',
+				type: 'POST',
+				cache:false,
+				data:data,
+				success: function(msg){
+					alert("操作成功");
+					location.reload();
+				},
+				error:function(){
+					alert("发生错误！");
+				}
+			});
+		  }else{
+		    return false;
+		  }
+		
+	});
+	
+});
+
+</script>
+</body>
+</html>

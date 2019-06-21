@@ -1,0 +1,177 @@
+<include file="Public/header" />
+<!-- <link rel="stylesheet" href="__PUBLIC__/css/chosen.css" /> -->
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp一周任务列表
+							</div>
+							<div>
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>SH</th>
+											<th>MD</th>
+											<th>MEMO</th>
+											<th>外拍</th>
+											<th>外拍时间</th>
+											<th>灯光</th>
+											<th>摄像</th>
+											<th>小蜜蜂</th>
+											<th>动影像录制时间</th>
+											<th>3分钟</th>
+											<th>CF</th>
+											<th>照片秀</th>
+											<th>后期难度</th>
+											<th>字幕难度</th>
+										</tr>
+									</thead>
+									<tbody>
+										<volist name="program" id="vo">
+											<tr>
+												<td>{$vo.ProgramDate}</td>
+												<td>{$vo.ProgramWeek}</td>
+												<td>{$vo.BroadChannel}</td>
+												<td>{$vo.BroadTime}</td>
+												<td>{$vo.VideoSite}</td>
+												<td>{$vo.ProgramReq}</td>
+												<td>{$vo.PD}</td>
+												<td>{$vo.SH}</td>
+												<td>{$vo.MD}</td>
+												<td>{$vo.MEMO}</td>
+												<td><if condition="$vo.IfGoOut eq 1">是<elseif condition="$vo.IfStudioShot eq 1" />否</if></td>
+												<td><if condition="$vo.IfGoOut eq 1">{$vo.OutDate}<elseif condition="$vo.IfStudioShot eq 1" />/</if></td>
+												<td><if condition="$vo.IfLight eq 1" >需要<elseif condition="($vo.IfStudioShot eq 1) OR ($vo.IfGoOut eq 1)" />/</if></td>
+												<td><if condition="$vo.IfCamera eq 1" >需要<elseif condition="($vo.IfStudioShot eq 1) OR ($vo.IfGoOut eq 1)" />/</if></td>
+												<td><if condition="$vo.IfBee eq 1" >需要<elseif condition="($vo.IfStudioShot eq 1) OR ($vo.IfGoOut eq 1)" />/</if></td>
+												<td>{$vo.MovieDate}<if condition="$vo.MovieHalfDay eq 'am'"> (上午)<elseif condition="$vo.MovieHalfDay eq 'pm'"/> (下午)</if></td>
+												<td>
+												<if condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.IfThreeMinute eq 1)">是
+												<elseif condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.IfThreeMinute eq 0)" />否</if>
+											</td>
+											<td>
+												<if condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.IfCF eq 1)">是
+												<elseif condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.IfCF eq 0)" />否</if>
+											</td>
+											<td>
+												<if condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.IfPhotoShow eq 1)">是
+												<elseif condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.IfPhotoShow eq 0)" />否</if>
+											</td>
+											<td>
+												<if condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.PostHardGrade eq 'NEW')">新
+												<elseif condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.PostHardGrade eq 'MODIFY')" />修
+												<elseif condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.PostHardGrade eq 'OLD')" />调</if>
+											</td>
+											<td>
+												<if condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.CaptionHardGrade eq 'NEW')">新
+												<elseif condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.CaptionHardGrade eq 'MODIFY')" />修
+												<elseif condition="($vo.IfSubmitPostCaption eq 1) AND ($vo.CaptionHardGrade eq 'OLD')" />调</if>
+											</td>
+											</tr>
+										</volist>
+									</tbody>
+								</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+							<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		$('#table1').dataTable({
+			searching: true,
+			lengthChange: false,
+			lengthMenu: [15],
+			info: true,
+			language:{
+	            "url": "/Public/font/zh_CN.txt"
+	    	}
+		});
+	});
+</script>
+</body>
+</html>

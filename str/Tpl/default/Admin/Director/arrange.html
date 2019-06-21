@@ -1,0 +1,246 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__PUBLIC__/css/chosen.css" />
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp本周任务
+							</div>
+							<!-- <div class="dataTables_borderWrap"> -->
+							<div>
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>SH</th>
+											<th>MD</th>
+											<th>MEMO</th>
+											<th>舞美</th>
+											<th>现场统筹</th>
+											<th>现场统筹</th>
+											<th>TD</th>
+											<th>开会</th>
+											<th>游机</th>
+											<th>耳麦</th>
+											<th>REMARK</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="excel" id="vo">
+										<tr>
+											<td>{$vo.1}</td>
+											<td>{$vo.2}</td>
+											<td>{$vo.3}</td>
+											<td>{$vo.4}</td>
+											<td>{$vo.5}</td>
+											<td>{$vo.6}</td>
+											<td>{$vo.7}</td>
+											<td>{$vo.8}</td>
+											<td>{$vo.9}</td>
+											<td>{$vo.10}</td>
+											<td>{$vo.11}</td>
+											<td>{$vo.12}</td>
+											<td>{$vo.13}</td>
+											<td>{$vo.14}</td>
+											<td>{$vo.15}</td>
+											<td>{$vo.16}</td>
+											<td>{$vo.17}</td>
+											<td>{$vo.18}</td>
+											<td><if condition="$vo.16 eq '游机' "> <button class="btn btn-xs btn-success">会议已结束</button>
+														<else /> <button  class="btn btn-xs btn-info">发送会议通知</button>
+													</if>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+					<br>	
+					<!-- 发送会议安排 -->			
+					<div class="widget-box row" id="send1">
+						<div class="widget-header widget-header-flat">
+							<h4 class="smaller">发送信息</h4>
+						</div>
+						<div class="widget-body col-sm-12">
+							<div class="widget-main row">
+								<form id="form1" class="form-horizontal" onsubmit="return false">
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right" for="form-field-1">产品</label>
+										<div class="col-sm-7">
+												<input type="text" id="form-field-1" placeholder="产品" class="col-sm-5" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right" for="form-field-1">会议时间</label>
+										<div class="col-sm-7">
+												<input type="text" id="form-field-1" placeholder="会议时间" class="col-sm-5" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label no-padding-right" for="form-field-1">地点内容</label>
+										<div class="col-sm-7">
+											<div class="col-sm-5" style="padding:0">
+												<textarea class="form-control" rows="5" id="form-field-1" placeholder="地点内容"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-7 col-sm-offset-5" style="padding-left:10px">
+										<button class="btn btn-sm btn-warning">发送</button>
+										<button class="btn btn-sm" style="margin-left:10px">取消</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- 导演主持信息表单 End-->	
+			
+					<!-- PAGE CONTENT ENDS -->
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content-area -->
+	</div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){
+			//加载layer扩展方法
+			layer.config({
+			    extend: 'extend/layer.ext.js'
+			});       
+			$("#send1").slideUp();
+			$('.chosen-select').chosen({allow_single_deselect:true}); 
+			$('#table1').dataTable({
+				searching: true,
+				lengthChange: false,
+				lengthMenu: [8],
+				info: true,
+				stateSave: true,//保存表格状态
+				language:{
+		            "url": "/Public/font/zh_CN.txt"
+		    	}
+			});
+			
+			//【已结束会议】按钮
+			$("button[class='btn btn-xs btn-success']").click(function(){
+				layer.prompt({
+				    formType: 2,
+				    value: '',
+				    title: '会议记录'
+				}, function(value, index, elem){
+				    //处理数据
+				    //.......
+				    layer.close(index);
+				});
+			});
+			
+			//【发送】按钮
+			$("button[class='btn btn-xs btn-info']").click(function(){
+				cancelSelected();
+				$(this).css("border-color","orange");
+				$("#send1").slideDown();
+			});
+			
+			//【提交】按钮
+			$("button[class='btn btn-sm btn-warning']").click(function(){
+				layer.msg("操作成功！",{time:1300});
+				cancelSelected();
+				$("#send1").slideUp();
+			});
+			
+			//【取消】按钮
+			$("button[class='btn btn-sm']").click(function(){
+				cancelSelected();
+				$("#send1").slideUp();
+			});
+			
+		});
+		
+		function cancelSelected(){
+			$("button[class='btn btn-xs btn-info']").css("border-color","#6fb3e0");
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<include file="Public/header" />
+<style>
+body{
+	background-color: #F2F2F2;
+}
+span,label{
+	font-size: 16px;
+	font-family: "微软雅黑";
+	padding-bottom: 8px;
+}
+span[class^="col-xs"]{
+	padding-left: 20px;
+}
+.image{
+	padding-bottom: 20px;
+}
+.text{
+	padding: 0;
+}
+p{
+	font-size: 12px;
+	text-indent: 2em;
+	line-height: 1.5em;
+}
+</style>
+<body>
+<div class="contianer" style="padding:20px">
+	<div class="col-xs-12" style="padding:0">
+		<div class="col-xs-12 center image">
+			<img src="{$model.ModelPhotoDir}" alt="" width="120px" height="120px" >
+		</div>
+		<div class="col-xs-12 text">
+			<span class="col-xs-6">姓名：{$model.ModelName}</span>
+			<label class="col-xs-6">性别：<if condition="$model.ModelSex eq 'female'">女<else />男</if></label>
+			<span class="col-xs-6">年龄：{$model.ModelAge}岁</span>
+			<label class="col-xs-6">身高：{$model.ModelHeight}</label>
+			<span class="col-xs-6">体重：{$model.ModelWeight}</span>
+			<label class="col-xs-6">价格：{$model.ModelPrice}元</label>
+			<span class="col-xs-6">公司：{$model.ModelCompany}</span>
+			<label class="col-xs-6">擅长：{$model.ModelSpecial}</label>
+			<span class="col-xs-12">联系电话：{$model.ModelPhone}</span>
+			<span class="col-xs-12">个人简介：<p>{$model.ModelInfo}</p></span>
+		</div>
+	</div>
+</div>
+</body>
+</html>

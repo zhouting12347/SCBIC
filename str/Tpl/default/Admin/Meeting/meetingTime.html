@@ -1,0 +1,86 @@
+<include file="Public/header" />
+<style>
+.a-upload {
+   	height: 30px;
+    line-height: 8px;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 30px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer
+}
+
+</style>
+<body style="background-color:white">
+<div class="contianer" style="padding:20px">
+	<form class="row" role="form" method="post" action="__GROUP__/Meeting/addMeetingHandler" onsubmit="return checkForm();">
+		<input type="hidden" name="RoomID"  value="{$id}" />
+		<input type="hidden" name="Id" value="{$programID}" />
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 开始时间 </label>
+			<input type="text"  id="start"  name="MeetStartTime" placeholder="请选择会议开始时间" class="col-sm-8" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="{$meetStartTime}" style="width:250px"/>
+		</div>
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 结束时间 </label>
+			<input type="text"  id="end"  name="MeetEndTime"  placeholder="请选择会议结束时间" class="col-sm-8" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="{$meetEndTime}"  style="width:250px"/>
+		</div>
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 会议内容 </label>
+			<textarea rows="2"  style="width:250px" name="MeetInfo" placeholder="会议内容" ></textarea>
+		</div>
+		<p style="text-align: center;">
+				<button type="submit"  class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i>提 交</button>
+				<a id="cData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm ui-state-hover"><i class="ace-icon fa fa-times"></i>取 消</a>
+		</p>
+	</form>
+</div>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/js/ace-elements.min.js"></script>
+<script src="__PUBLIC__/js/ace.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="__PUBLIC__/laypage/laypage.js"></script>
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		//获取窗口索引
+		var index = parent.layer.getFrameIndex(window.name);
+		//【提交】
+		$("#sData").click(function(){
+			parent.layer.msg("操作成功！",{time:1300});
+			parent.layer.close(index);
+		});
+		
+		//【取消】
+		$("#cData").click(function(){
+			//关闭填出层
+			parent.layer.closeAll();
+		});
+		// chosen.js
+		$('.chosen-select').chosen({allow_single_deselect:true});
+	});
+	
+	//表单检查
+	function checkForm(){
+		if(($('#start').val()=='')||($('#end').val()=='')){
+			layer.alert('请选择会议时间', {icon: 7}); 
+			return false;
+		}else if($('#start').val()>$('#end').val()){
+			layer.alert('会议起始时间大于会议结束时间！', {icon: 7}); 
+			return false;
+		}
+	}
+</script>
+</html>

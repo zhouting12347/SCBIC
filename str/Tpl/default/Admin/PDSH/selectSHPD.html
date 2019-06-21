@@ -1,0 +1,324 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__PUBLIC__/css/chosen.css" />
+<style>
+/*搜索框上边距*/
+	#table1_filter{
+		margin-top:5px;
+	}
+</style>
+	<body class="no-skin">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								选择导演主持人
+							</div>
+							<!-- <div class="dataTables_borderWrap"> -->
+							<div>
+								<div class="col-xs-6">
+									<button class="btn btn-sm btn-success allSend" style="margin:5px 0">
+										全部发送
+										<i class="ace-icon fa fa-share icon-on-right align-middle"></i>
+									</button>
+								</div>
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>MEMO</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>SH</th>
+											<th>MD</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="program" id="vo">
+										<tr>
+											<td>{$vo.ProgramDate}</td>
+											<td>{$vo.ProgramWeek}</td>
+											<td>{$vo.BroadChannel}</td>
+											<td>{$vo.BroadTime}</td>
+											<td>{$vo.MEMO}</td>
+											<td>{$vo.VideoSite}</td>
+											<td>{$vo.ProgramReq}</td>
+											<td>{$vo.PD}</td>
+											<td>{$vo.SH}</td>
+											<td>{$vo.MD}</td>
+											<td>
+												<button  class="btn btn-xs btn-info" id="{$vo.Id}" >人员选择</button>
+												<if condition="($vo.PDID neq '') AND ($vo.SHID neq '')">
+													<button  class="btn btn-xs btn-success" programID="{$vo.Id}" >发送导演主持</button>
+												</if>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+					<br>	
+					<!-- 导演主持信息表单 -->
+					<div class="widget-box row" id="send1">
+						<div class="widget-header widget-header-flat">
+							<h4 class="smaller">选择人员信息</h4>
+						</div>
+						<div class="widget-body col-xs-12">
+							<div class="widget-main row">
+							<form id="form1" class="col-xs-12" onsubmit="return false">
+									<h4 class="row col-xs-12 blue" style="margin:0;padding-bottom:5px;border-bottom:1px solid #D0D0D0;">
+										选择导演
+										<!-- <small style="margin-left:15px">
+											<label class="middle">
+												<input class="ace ace-checkbox-2 CheckedAll" name="items1" type="checkbox">
+												<span class="lbl"> 全选 / 取消</span>
+											</label>
+										</small> -->
+									</h4>
+									<volist name="director" id="vo" >
+										<span class="col-xs-2" style="margin-top:10px">
+											<ul class="ace-thumbnails middle" style="display: inline-block;">
+												<li style="border:none">
+													<a href="#" class="ace-thumbnails clearfix" data-rel="colorbox" role="director" userID="{$vo.Id}" >
+														<img width="50" src="__PUBLIC__/avatars/shead.png">
+														<div class="text" style="padding:2px 4px 0 0">
+															<div class="inner">本周<br>安排</div>
+														</div>
+													</a>
+												</li>
+											</ul>
+											<label>
+												<input name="director" type="radio" value="{$vo.Id}" username="{$vo.Name}" class="ace">
+												<span class="lbl">{$vo.Name}</span>
+												<span class="lbl">({$vo.PDTaskCount})</span>
+											</label>
+										</span>
+									</volist>
+									
+									
+									<div class="col-xs-12 space-10"></div>
+									
+									<h4 class="row col-xs-12 pink" style="margin:0;padding-bottom:5px;border-bottom:1px solid #D0D0D0;">
+										选择主持人
+										<!-- <small style="margin-left:15px">
+											<label class="middle">
+												<input class="ace ace-checkbox-2 CheckedAll" name="items2" type="checkbox">
+												<span class="lbl"> 全选 / 取消</span>
+											</label>
+										</small> -->
+									</h4>
+									<volist name="host" id="vo" >
+										<span class="col-xs-2" style="margin-top:10px">
+											<ul class="ace-thumbnails middle" style="display: inline-block;">
+												<li style="border:none">
+													<a href="#" class="ace-thumbnails clearfix" data-rel="colorbox" role="host" userID="{$vo.Id}" >
+														<img width="50" src="__PUBLIC__/avatars/shead.png">
+														<div class="text" style="padding:2px 4px 0 0">
+															<div class="inner">本周<br>安排</div>
+														</div>
+													</a>
+												</li>
+											</ul>
+											<label>
+												<input name="host" type="radio" value="{$vo.Id}" username="{$vo.Name}" class="ace">
+												<span class="lbl">{$vo.Name}</span>
+												<span class="lbl">({$vo.SHTaskCount})</span>
+											</label>
+										</span>
+									</volist>
+									
+
+									<div class="col-xs-12 space-20"></div>
+									<input type="hidden" id="programID"  name="programID" value="" >
+									<input type="hidden"  id="taskID" name="taskID" value="{$taskID}" >
+									<div class="col-xs-12 center">
+										<button class="btn btn-sm btn-warning">确定</button>
+										<button class="btn btn-sm" style="margin-left:10px">取消</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- 导演主持信息表单 End-->
+			
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+
+
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		$("#send1").slideUp();
+		//$("#send2").slideUp();
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+		$('#table1').dataTable({
+			searching: true,
+			lengthChange: false,
+			lengthMenu: [5],
+			info: true,
+			stateSave: true,//保存表格状态
+			language:{
+	            "url": "/Public/font/zh_CN.txt"
+	    	}
+		});
+		
+		//【查看】按钮
+		$("button[class='btn btn-xs btn-purple']").click(function(){
+			layer.alert('导演：王晶 <br> 主持人：吴宗宪');
+		});
+
+		//【修改】按钮
+		$("button[class='btn btn-xs btn-pink']").click(function(){
+			cancelSelected();
+			$(this).css("border-color","orange");
+			$("#send1").slideDown();
+		});
+
+		//【人员选择】按钮
+		$("button[class='btn btn-xs btn-info']").click(function(){
+			cancelSelected();
+			
+			//传入该条program的id
+			$('#programID').val($(this).attr('id'));
+			$(this).css("border-color","orange");
+			$("#send1").slideDown();
+		});
+		
+		//【发送导演主持】按钮
+		$("button[class='btn btn-xs btn-success']").click(function(){
+			var programID=$(this).attr('programID');
+			layer.confirm('是否发送?', {icon: 3, title:'提示'}, function(index){
+				$.ajax({
+					url: '/index.php/PDSH/sendPDSHHandler?programID='+programID,
+					dataType: 'json',
+					type: 'GET',
+					success: function(msg) {
+						if(!msg.status){
+							//发送失败
+							layer.alert(msg.info, {icon: 2},function(index){location.reload();}); 
+						}else{
+							//发送成功
+							layer.alert(msg.info, {icon: 1},function(index){location.reload();}); 
+						}
+					}
+				});
+			});
+		});
+		
+		//【确定】按钮
+		$("button[class='btn btn-sm btn-warning']").click(function(){
+			cancelSelected();
+			var daoyan = "";
+			var zhuchi = "";
+			daoyan=$("input[name='director']:checked").attr('username');
+			zhuchi=$("input[name='host']:checked").attr('username');
+	
+       		if(daoyan==null && zhuchi==null){
+       			layer.alert("亲！请先选择导演或主持人");
+       		}else if(daoyan==null){
+       			layer.alert("亲！导演还没有选");
+       		}else if(zhuchi==null){
+       			layer.alert("亲！主持人还没有选");
+       		}else{
+				layer.confirm("您选择的导演是：<br /><strong>"+daoyan+"</strong><br /><br />您选择的主持人是：<br /><strong>"+zhuchi+"</strong>", {
+				    btn: ['提交','取消'] //按钮
+				}, function(){
+					ajaxSubmit();
+				    layer.msg("操作成功！",{time:1300});
+				    $("#send1").slideUp();
+				});
+			}
+		});
+		
+		
+		//【取消】按钮
+		$("button[class='btn btn-sm']").click(function(){
+			cancelSelected();
+			$("#send1").slideUp();
+		});
+		
+		$(".CheckedAll").click(function(){
+			var name=$(this).attr('name');
+			$("[name="+name+"]:checkbox").prop("checked",this.checked);
+			$("input:not(.CheckedAll)[name="+name+"]:checkbox").click(function(){
+				var $tmp = $("input:not(.CheckedAll)[name="+name+"]:checkbox");
+				var flag = $tmp.length == $tmp.filter(":checked").length;
+				$(".CheckedAll[name='"+name+"']").prop("checked",flag);
+			});
+		});
+
+		// 导演，主持本周安排
+		$("a.ace-thumbnails").click(function(){
+			var role=$(this).attr("role");
+			var userID=$(this).attr("userID");
+			var taskID=$("#taskID").val();
+			layer.open({
+			    type: 2,
+			    title:"本周任务",
+			    area: ['850px', '350px'],
+			    content:  "/index.php/PDSH/week_arrange?taskID="+taskID+"&role="+role+"&userID="+userID,
+			    maxmin: false,
+			    shadeClose:true,
+			});
+			return false;
+		});
+		
+		//全部发送
+		$("button[class='btn btn-sm btn-success allSend']").click(function(){
+			var taskID=$("#taskID").val();
+			layer.confirm('是否确定全部发送?', {icon: 3, title:'提示'}, function(index){
+				$.ajax({
+					url: '/index.php/PDSH/allSendPDSHHandler?taskID='+taskID,
+					dataType: 'json',
+					type: 'GET',
+					success: function(msg) {
+						if(!msg.status){
+							//发送失败
+							layer.alert(msg.info, {icon: 2},function(index){location.reload();}); 
+						}else{
+							//发送成功
+							layer.alert(msg.info, {icon: 1},function(index){location.reload();}); 
+						}
+					}
+				});
+			});
+		});
+		
+});
+		
+		
+		
+		//取消选择颜色
+		function cancelSelected(){
+			$("button[class='btn btn-xs btn-info']").css("border-color","#6fb3e0");
+			$("button[class='btn btn-xs btn-pink']").css("border-color","#d6487e");
+		}
+		
+		//ajax方式提交主持人导演
+		function ajaxSubmit(){
+			$.ajax({
+				url: '/index.php/PDSH/selectPDSHHandler',
+				dataType: 'json',
+				type: 'POST',
+				data:$('#form1').serialize(),
+				success: function(msg) {
+					if(!msg.status){
+						//提交失败
+						layer.alert(msg.info, {icon: 2},function(index){location.reload();}); 
+					}else{
+						//提交成功
+						layer.alert(msg.info, {icon: 1},function(index){location.reload();}); 
+					}
+				}
+			});
+		}
+		</script>
+	</body>
+</html>

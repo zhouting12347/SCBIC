@@ -1,0 +1,93 @@
+<include file="Public/header" />
+<body style="background-color:white">
+<div class="contianer" style="padding:20px">
+	<form class="row" role="form" method="post" action="__GROUP__/Arrange/editArrangeHandler" >
+		<input type="hidden" name="Id" value="{$programID}" />
+		<input type="hidden" name="IfCameraSelected" value="1" />
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 摄像1</label>
+			<select class="chosen-select1" id="form-field-1" data-placeholder="请选择人员..." name="Camera1ID" style="width:250px">
+				<option value="0">无</option>
+				<volist name="user" id="vo">
+					<option value="{$vo.user_id}">{$vo.name}</option>
+				</volist>
+			</select>
+		</div>
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 摄像2</label>
+			<select class="chosen-select2" id="form-field-1" data-placeholder="请选择人员..."  name="Camera2ID" style="width:250px">
+				<option value="0">无</option>
+				<volist name="user" id="vo">
+					<option value="{$vo.user_id}">{$vo.name}</option>
+				</volist>
+			</select>
+		</div>
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 摄像3</label>
+			<select class="chosen-select3" id="form-field-1" data-placeholder="请选择人员..." name="Camera3ID" style="width:250px">
+				<option value="0">无</option>
+				<volist name="user" id="vo">
+					<option value="{$vo.user_id}">{$vo.name}</option>
+				</volist>
+			</select>
+		</div>
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 摄像4</label>
+			<select class="chosen-select4" id="form-field-1" data-placeholder="请选择人员..."  name="Camera4ID" style="width:250px">
+				<option value="0">无</option>
+				<volist name="user" id="vo">
+					<option value="{$vo.user_id}">{$vo.name}</option>
+				</volist>
+			</select>
+		</div>
+		<br>
+		<p style="text-align: center;">
+				<button id="sData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i>提 交</button>
+				<a id="cData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm ui-state-hover"><i class="ace-icon fa fa-times"></i>取 消</a>
+		</p>
+	</form>
+	<input type="hidden"  id="Camera1ID" value="{$program.Camera1ID}" />
+	<input type="hidden"  id="Camera2ID" value="{$program.Camera2ID}" />
+	<input type="hidden"  id="Camera3ID" value="{$program.Camera3ID}" />
+	<input type="hidden"  id="Camera4ID" value="{$program.Camera4ID}" />
+</div>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/js/ace-elements.min.js"></script>
+<script src="__PUBLIC__/js/ace.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="__PUBLIC__/laypage/laypage.js"></script>
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		//获取窗口索引
+		var index = parent.layer.getFrameIndex(window.name);
+		
+		//【取消】
+		$("#cData").click(function(){
+			//关闭填出层
+			parent.layer.closeAll();
+		});
+		
+		//已选择的人员
+		var Camera1ID=$("#Camera1ID").val();
+		var Camera2ID=$("#Camera2ID").val();
+		var Camera3ID=$("#Camera3ID").val();
+		var Camera4ID=$("#Camera4ID").val();
+		 $(".chosen-select1").find("option[value='"+Camera1ID+"']").attr("selected",true);
+		 $(".chosen-select2").find("option[value='"+Camera2ID+"']").attr("selected",true);
+		 $(".chosen-select3").find("option[value='"+Camera3ID+"']").attr("selected",true);
+		 $(".chosen-select4").find("option[value='"+Camera4ID+"']").attr("selected",true);
+		
+		// chosen.js
+		$('.chosen-select1').chosen({allow_single_deselect:true}); 
+		$('.chosen-select2').chosen({allow_single_deselect:true}); 
+		$('.chosen-select3').chosen({allow_single_deselect:true}); 
+		$('.chosen-select4').chosen({allow_single_deselect:true}); 
+	});
+</script>
+</html>

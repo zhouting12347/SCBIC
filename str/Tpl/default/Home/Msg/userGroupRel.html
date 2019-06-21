@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+		table tbody {
+	        display:block;
+	    }
+	    table thead, tbody tr {
+	        display:table;
+	        width:100%;
+	        table-layout:fixed;
+	    }
+	    table thead {
+	        width: calc( 100% - 1em )
+	    }
+		.nav li a {
+			color:white;
+	    }
+	    .nav li a:hover{
+			background-color: #545454;
+	    }
+		.dropdown-menu{
+			background-color: gray;
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:15px;">
+	<div class="row" style="background-color: #C60000;">
+		<!--nav-->
+		<div class="col-md-6 col-xs-6">
+			<ul class="nav nav-pills">
+	             <li><a href="__GROUP__/Msg/sendMsg">短信发送</a></li>
+	             <li><a href="__GROUP__/Msg/searchMsg">短信查询</a></li>
+	             <li class="dropdown active" >
+	             <a class="dropdown-toggle" data-toggle="dropdown" href="#">人员分组 <b class="caret"></b></a>
+	             <ul class="dropdown-menu">
+	                <li><a href="__GROUP__/Msg/userManage">人员管理</a></li>
+	                <li><a href="__GROUP__/Msg/groupManage">分组管理</a></li>
+	                <li><a href="__GROUP__/Msg/userGroupRel">人员分组关系</a></li>
+	             </ul>
+	             </li>
+        	 </ul>
+		</div>
+		<!--end nav-->
+	</div>
+	<br>
+	
+	
+	<div class="row">
+		<div class="col-md-5 col-xs-5"  style="text-align: center;">
+			<p>用户列表</p>
+			<select class="form-control" name="user1[]" multiple style="height:800px;" id="user">
+				<volist name="user" id="vo">
+					<option value={$vo.id}>{$vo.name|formatString}{$vo.depart|formatString}{$vo.duty|formatString}</option>
+				</volist>
+			</select>
+		</div>
+		
+		<div class="col-md-2 col-xs-2"  style="text-align: center;">
+			<div style="margin-top:300px;"><button class="btn btn-large btn-primary" type="button" id="add">加入到分组中>></button></div>
+			<br><br><br>
+			<div><button class="btn btn-large btn-danger" type="button" id="remove"><<从分组中移除</button></div>
+		</div>
+		
+		<div class="col-md-5 col-xs-5" style="text-align: center;">
+			<select class="form-control" id="group">
+				<option value=0>--选择分组--</option>
+				<volist name="group" id="vo">
+					<option value={$vo.id}>{$vo.name}</option>
+				</volist>
+			</select>
+			
+			<select class="form-control" name="user2[]" multiple style="height:800px;" id="user2">
+				
+			</select>
+		</div>
+	</div>
+
+
+	
+
+	
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script>
+$(function (){
+	//用户加入到分组
+	$("#add").click(function(){
+		if($("#user").val()==0){
+			alert("请选择用户！");
+			return 0;
+		}
+		if($("#group").val()==0){
+			alert("请先选择分组！");
+			return 0;
+		}
+		
+		var data="userId="+$("#user").val()+"&groupId="+$("#group").val();
+		$.ajax({
+			url: '/index.php/Msg/userToGroup',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:data,
+			success: function(msg){
+				if(msg.status){
+					$("#user2").html(msg.data);
+				}else{
+					alert("操作失败");
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+	//获取分组的用户
+	$("#group").change(function(){
+		var groupid=$("#group").val();
+		if(groupid==0){
+			$("#user2").html('');
+			return 0;
+		}
+		var data="groupid="+groupid;
+		$.ajax({
+			url: '/index.php/Msg/getGroupUser',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:data,
+			success: function(msg){
+				if(msg.status){
+					$("#user2").html(msg.data);
+				}else{
+					alert("操作失败");
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+	//从分组中移除
+	$("#remove").click(function(){
+		if($("#group").val()==0){
+			alert("请先选择分组！");
+			return 0;
+		}
+		
+		var data="userId="+$("#user2").val()+"&groupId="+$("#group").val();
+		$.ajax({
+			url: '/index.php/Msg/removeUser',
+			dataType: 'json',
+			type: 'POST',
+			cache:false,
+			data:data,
+			success: function(msg){
+				if(msg.status){
+					$("#user2").html(msg.data);
+				}else{
+					alert("操作失败");
+				}
+			},
+			error:function(){
+				alert("发生错误！");
+			}
+		});
+	});
+	
+});
+</script>
+</body>
+</html>

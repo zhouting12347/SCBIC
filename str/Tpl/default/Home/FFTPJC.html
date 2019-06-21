@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #A8A8A8;
+			color:#FFFFFF;
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" style="padding:10px 30px;"><img src="img/LOGO.png" alt=""></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">流程中心</a></li>
+        <li class="dropdown active">
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">广播电视监测<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="active"><a href="JSJC.html">技术监测</a></li>
+            <li><a href="ZBPD.html">直播频道</a></li>
+          </ul>
+        </li>
+        <li><a href="FFTPJC.html">非法调频监测</a></li>
+        <li><a href="#">预警转发</a></li>
+        <li><a href="#">指挥调度</a></li>
+        <li><a href="#">管理中心</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" style="padding:5px;"><img src="img/admin.png" alt=""></a></li>
+        <li><a href="#">欢迎您，管理员</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav><!-- 导航栏结束 -->
+
+<div class="container-fluid">
+	<div class="row">
+<!-- 左边栏 -->
+		<div class="col-md-7 col-xs-12">
+		  	<div class="panel" style="background-color:#E8E8E8;">
+		  		<div class="panel-heading" style="background-color:#C60000;"><h3>信号监测</h3></div>
+		  		<div class="panel-body" style="padding:25px;">
+		  			<div class="row">
+		  				<div class="col-md-4">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="BJLX" style="margin-right:5px">报警类型：</label>
+							    <select class="form-control input-sm" id="BJLX">
+								  <option>虚报</option>
+								  <option>时报</option>
+								</select>
+							  </div>
+							</form>
+						</div>
+						<div class="col-md-4">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="XHLX" style="margin-right:5px">信号类型：</label>
+							    <select class="form-control input-sm" id="XHLX">
+								  <option>虚报</option>
+								  <option>时报</option>
+								</select>
+							  </div>
+							</form>
+						</div>
+						<div class="col-md-4">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="PLZ" style="margin-right:5px">频率值：</label>
+							    <select class="form-control input-sm" id="PLZ">
+								  <option>虚报</option>
+								  <option>时报</option>
+								</select>
+							  </div>
+							</form>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+		  				<div class="col-md-6">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="BJSJC" style="margin-right:5px">报警时间从</label>
+							    <select class="form-control input-sm" id="BJSJC">
+								  <option>2017-1-9 22:00:00</option>
+								</select>
+							  </div>
+							  <div class="form-group">
+							    <label for="Z" style="margin-right:5px">至</label>
+							    <select class="form-control input-sm" id="Z">
+								  <option>2017-1-9 22:00:00</option>
+								</select>
+							  </div>
+							</form>
+						</div>
+						<div class="col-md-6">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="PLZ" style="margin-right:5px">持续时间</label>
+							    <input type="text" class="form-control input-sm" id="PLZ">
+							  </div>
+							  <div class="form-group">
+							    <label for="MZ" style="margin-right:5px">秒至</label>
+							    <input type="text" class="form-control input-sm" id="MZ">
+							  </div>
+							</form>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+		  				<div class="col-md-4">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="QRZT" style="margin-right:5px">确认状态：</label>
+							    <select class="form-control input-sm" id="QRZT">
+								  <option>虚报</option>
+								  <option>时报</option>
+								</select>
+							  </div>
+							</form>
+						</div>
+						<div class="col-md-4">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="JSZT" style="margin-right:5px">结束状态：</label>
+							    <select class="form-control input-sm" id="JSZT">
+								  <option>虚报</option>
+								  <option>时报</option>
+								</select>
+							  </div>
+							</form>
+						</div>
+						<div class="col-md-4">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label for="PDMC" style="margin-right:5px">频道名称：</label>
+							    <select class="form-control input-sm" id="PDMC">
+								  <option>虚报</option>
+								  <option>时报</option>
+								</select>
+							  </div>
+							</form>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+		  				<div class="col-md-12">
+						   	<form class="form-inline">
+							  <div class="form-group">
+							    <label style="margin-right:5px">差错等级：</label>
+							    <label class="checkbox-inline">
+								  <input type="checkbox" id="inlineCheckbox1" value="option1"> 一级
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox" id="inlineCheckbox2" value="option2"> 二级
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox" id="inlineCheckbox3" value="option3"> 三级
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox" id="inlineCheckbox3" value="option3"> 非常错
+								</label>
+							  </div>
+							</form>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+		  				<div class="col-md-2 center"><button type="button" class="btn btn-lg btn-primary  btn-block">查询</button></div>
+		  				<div class="col-md-2 center"><button type="button" class="btn btn-lg btn-success  btn-block">导出</button></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 表格 -->
+			<div class="row">
+  				<div class="col-md-12">
+				   	<table class="table table-striped" id="TB01">
+				   		<thead>
+				   			<tr>
+								<th>报警发生时间</th>
+								<th>报警结束时间</th>
+								<th>频道名称</th>
+								<th>频率值</th>
+								<th>信号类型</th>
+								<th>监测站</th>
+								<th>报警类型</th>
+								<th>差错类型</th>
+								<th>差错等级</th>
+								<th>持续时间</th>
+								<th>结束状态</th>
+								<th>确认状态</th>
+							</tr>
+				   		</thead>
+				   		<tbody>
+				   			<tr>
+				   				<td>2017-01-01 22:12:00</td>
+				   				<td>2017-01-01 22:12:00</td>
+				   				<td>东方电影</td>
+				   				<td>203MHz</td>
+				   				<td>DVB-C</td>
+				   				<td>上海</td>
+				   				<td>静帧</td>
+				   				<td>电视劣播</td>
+				   				<td>三级</td>
+				   				<td>10秒</td>
+				   				<td>未结束</td>
+				   				<td>已确认</td>
+				   			</tr>
+				   			<tr>
+				   				<td>2017-01-01 22:12:00</td>
+				   				<td>2017-01-01 22:12:00</td>
+				   				<td>东方电影</td>
+				   				<td>203MHz</td>
+				   				<td>DVB-C</td>
+				   				<td>上海</td>
+				   				<td>静帧</td>
+				   				<td>电视劣播</td>
+				   				<td>三级</td>
+				   				<td>10秒</td>
+				   				<td>未结束</td>
+				   				<td>已确认</td>
+				   			</tr>
+				   			<tr>
+				   				<td>2017-01-01 22:12:00</td>
+				   				<td>2017-01-01 22:12:00</td>
+				   				<td>东方电影</td>
+				   				<td>203MHz</td>
+				   				<td>DVB-C</td>
+				   				<td>上海</td>
+				   				<td>静帧</td>
+				   				<td>电视劣播</td>
+				   				<td>三级</td>
+				   				<td>10秒</td>
+				   				<td>未结束</td>
+				   				<td>已确认</td>
+				   			</tr>
+				   		</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+<!-- 左边栏结束 -->
+
+<!-- 右边栏 -->
+		<div class="col-md-5 col-xs-12">
+		  	<div class="panel" style="background-color:#E8E8E8;">
+		  		<div class="panel-heading" style="background-color:#E17B28;"><h3>报警详情</h3></div>
+		  		<div class="panel-body" style="padding:25px;">
+		  			<div class="row">
+		  				<div class="col-md-6" style="margin-top:45px;">
+		  					<video src="weixing.ts" width="100%" poster="img/show.jpg"></video>
+		  				</div>
+		  				<div class="col-md-6">
+		  					<div class="row" style="margin-bottom:8px;">
+		  						<div class="col-md-12">
+		  							<form class="form-inline">
+									  <div class="form-group">
+									    <label for="KSSJR" style="margin-right:5px">开始时间：</label>
+									    <input type="text" class="form-control input-sm" id="KSSJR">
+									  </div>
+									</form>
+		  						</div>
+		  					</div>
+		  					<div class="row" style="margin-bottom:8px;">
+		  						<div class="col-md-12">
+		  							<form class="form-inline">
+									  <div class="form-group">
+									    <label for="JSSJR" style="margin-right:5px">结束时间：</label>
+									    <input type="text" class="form-control input-sm" id="JSSJR">
+									  </div>
+									</form>
+		  						</div>
+		  					</div>
+		  					<div class="row" style="margin-bottom:8px;">
+		  						<div class="col-md-12">
+		  							<form class="form-inline">
+									  <div class="form-group">
+									    <label for="CXSJR" style="margin-right:5px">持续时间：</label>
+									    <input type="text" class="form-control input-sm" id="CXSJR">
+									  </div>
+									</form>
+		  						</div>
+		  					</div>
+		  					<div class="row" style="margin-bottom:8px;">
+		  						<div class="col-md-12">
+		  							<form class="form-inline">
+									  <div class="form-group">
+									    <label for="XHLXR" style="margin-right:5px">信号类型：</label>
+									    <input type="text" class="form-control input-sm" id="XHLXR">
+									  </div>
+									</form>
+		  						</div>
+		  					</div>
+		  					<div class="row" style="margin-bottom:8px;">
+		  						<div class="col-md-12">
+		  							<form class="form-inline">
+									  <div class="form-group">
+									    <label for="BJPDR" style="margin-right:5px">报警频道：</label>
+									    <input type="text" class="form-control input-sm" id="BJPDR">
+									  </div>
+									</form>
+		  						</div>
+		  					</div>
+		  					<div class="row" style="margin-bottom:8px;">
+		  						<div class="col-md-12">
+		  							<form class="form-inline">
+									  <div class="form-group">
+									    <label for="CCLXR" style="margin-right:5px">差错类型：</label>
+									    <input type="text" class="form-control input-sm" id="CCLXR">
+									  </div>
+									</form>
+		  						</div>
+		  					</div>
+		  					<div class="row" style="margin-bottom:8px;">
+		  						<div class="col-md-12">
+		  							<form class="form-inline">
+									  <div class="form-group">
+									    <label for="BJLXR" style="margin-right:5px">报警类型：</label>
+									    <input type="text" class="form-control input-sm" id="BJLXR">
+									  </div>
+									</form>
+		  						</div>
+		  					</div>
+		  					<div class="row" style="margin-bottom:8px;">
+				  				<div class="col-md-12">
+				  					<form class="form-inline">
+				  						<label style="margin-right:5px">差错等级：</label>
+									  	<div class="form-group">
+										    <label class="checkbox-inline">
+											  <input type="checkbox" id="inlineCheckbox1" value="option1"> 一级
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="inlineCheckbox2" value="option2"> 二级
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="inlineCheckbox3" value="option3"> 三级
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="inlineCheckbox3" value="option3"> 非常错
+											</label>
+									  	</div>
+									</form>
+								</div>
+							</div>
+							<div class="row">
+				  				<div class="col-md-12">
+				  					<form class="form-inline">
+								   		<label style="margin-right:5px">确认状态：</label>
+									  	<div class="form-group">
+										    <label class="checkbox-inline">
+											  <input type="checkbox" id="inlineCheckbox1" value="option1"> 未确认
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="inlineCheckbox2" value="option2"> 已确认
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="inlineCheckbox3" value="option3"> 误报
+											</label>
+									  	</div>
+									</form>
+								</div>
+							</div>
+		  				</div>
+		  				<div class="row">
+			  				<div class="col-xs-12">
+							   	<form>
+								  <div class="form-group">
+								    <label for="BJMSR">报警描述：</label>
+								    <textarea class="form-control" rows="5" id="BJMSR"></textarea>
+								  </div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+			  				<div class="col-md-3 center"><button type="button" class="btn btn-lg btn-danger  btn-block">报警确认</button></div>
+			  				<div class="col-md-3 center"><button type="button" class="btn btn-lg btn-warning btn-block">异态视频下载</button></div>
+			  				<div class="col-md-3 center"><button type="button" class="btn btn-lg btn-info  btn-block">一键通话</button></div>
+			  				<div class="col-md-3 center"><button type="button" class="btn btn-lg btn-success  btn-block" data-toggle="modal" data-target=".YCBGDJ01">异常报告登记</button></div>
+<!-- 弹窗 -->
+							<div class="modal fade YCBGDJ01" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							  	<div class="modal-dialog modal-lg" role="document">
+							    	<div class="modal-content">
+									    <div class="panel-heading" style="background-color:#E41B6B;"><h3>非法调频广播登记</h3></div>
+									    <div class="panel-body" style="padding:25px;">
+								  			<div class="row">
+								  				<div class="col-xs-6">
+												   	<form class="form-inline">
+													  <div class="form-group">
+													    <label for="DJRQ" style="margin-right:5px">登记日期：</label>
+													    <input type="text" class="form-control" id="DJRQ" style="width:300px;">
+													  </div>
+													</form>
+												</div>
+												<div class="col-xs-6">
+												   	<form class="form-inline">
+													  <div class="form-group">
+													    <label for="DJSJ" style="margin-right:5px">登记时间：</label>
+													    <input type="text" class="form-control" id="DJSJ" style="width:300px;">
+													  </div>
+													</form>
+												</div>
+											</div>
+											<br>
+											<div class="row">
+								  				<div class="col-xs-6">
+												   	<form class="form-inline">
+													  <div class="form-group">
+													    <label for="TPPL" style="margin-right:5px">调频频率：</label>
+													    <input type="text" class="form-control" id="TPPL" style="width:300px;">
+													  </div>
+													</form>
+												</div>
+												<div class="col-xs-6">
+												   	<form class="form-inline">
+													  <div class="form-group">
+													    <label for="JCZD" style="margin-right:5px">监测站点：</label>
+													    <input type="text" class="form-control" id="JCZD" style="width:300px;">
+													  </div>
+													</form>
+												</div>
+											</div>
+											<br>
+											<div class="row">
+								  				<div class="col-xs-6">
+												   	<form class="form-inline">
+													  <div class="form-group">
+													    <label for="SHDW" style="margin-right:5px">审核单位：</label>
+													    <input type="text" class="form-control" id="SHDW" style="width:300px;">
+													  </div>
+													</form>
+												</div>
+												<div class="col-xs-6"></div>
+											</div>
+											<br>
+											<div class="row">
+								  				<div class="col-xs-12">
+												   	<form>
+													  <div class="form-group">
+													    <label for="FFBCNR">非法播出内容：</label>
+													    <textarea class="form-control" rows="5" id="FFBCNR"></textarea>
+													  </div>
+													</form>
+												</div>
+											</div>
+											<br>
+											<div class="row">
+								  				<div class="col-xs-3 center"></div>
+								  				<div class="col-xs-3 center"><button type="button" class="btn btn-primary btn-lg btn-block">保存</button></div>
+								  				<div class="col-xs-3 center"><button type="button" class="btn btn-success btn-lg btn-block">提交</button></div>
+								  				<div class="col-xs-3 center"></div>
+											</div>
+										</div>
+								    </div>
+								</div>
+							</div>
+<!-- 弹窗结束 -->
+						</div>
+		  			</div>
+				</div>
+			</div>
+		</div>
+<!-- 右边栏结束 -->
+	</div>
+</div>
+
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

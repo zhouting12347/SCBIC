@@ -1,0 +1,66 @@
+<include file="Public/header" />
+<body>
+<div class="col-xs-12 col-sm-6 widget-container-col">
+	<form action="__GROUP__/Meeting/roomTimeList" method="post">
+		<input type="hidden" name="roomID" value="{$roomID}" />
+		<input type="text" placeholder="选择日期" name="meetDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+		<button class="btn btn-success btn-sm">查询<i class="ace-icon fa fa-search icon-on-right bigger-110"></i></button>
+	</form>
+</div>
+<div class="col-xs-12 col-sm-6 widget-container-col">
+	<div class="widget-box widget-color-blue">
+		<!-- #section:custom/widget-box.options -->
+		<div class="widget-header">
+			<h5 class="widget-title bigger lighter">
+				<i class="ace-icon fa fa-table"></i>
+				{$roomName} {$time}
+			</h5>
+		</div>
+		<!-- /section:custom/widget-box.options -->
+		<div class="widget-body">
+			<div class="widget-main no-padding">
+				<table class="table table-striped table-bordered table-hover">
+					<thead class="thin-border-bottom">
+						<tr>
+							<th><i class="ace-icon fa fa-bookmark"></i>预订时间</th>
+							<th><i class="ace-icon fa fa-user"></i>使用人</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="roomTimeList" id="vo" >
+							<tr>
+								<td>{$vo.MeetStartTime|substr=-8}~{$vo.MeetEndTime|substr=-8}</td>
+								<td>{$vo.PD},{$vo.SH},{$vo.MD}</td>
+							</tr>
+						</volist>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<p style="text-align: center;">
+		<a id="cData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm ui-state-hover"><i class="ace-icon fa fa-times"></i>取 消</a>
+	</p>
+	
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/js/ace-elements.min.js"></script>
+<script src="__PUBLIC__/js/ace.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="/Public/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+jQuery(function($){
+	//获取窗口索引
+	var index = parent.layer.getFrameIndex(window.name);
+	
+	//【取消】
+	$("#cData").click(function(){
+		//关闭填出层
+		parent.layer.closeAll();
+	});
+});
+</script>
+</body>
+</html>

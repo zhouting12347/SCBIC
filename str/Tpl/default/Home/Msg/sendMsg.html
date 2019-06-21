@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+		table tbody {
+	        display:block;
+	        height:800px;
+	        overflow-y:scroll;
+	    }
+	    table thead, tbody tr {
+	        display:table;
+	        width:100%;
+	        table-layout:fixed;
+	    }
+	    table thead {
+	        width: calc( 100% - 1em )
+	    }
+ 		.nav li a {
+			color:white;
+	    }
+	    .nav li a:hover{
+			background-color: #545454;
+	    }
+		.dropdown-menu{
+			background-color: gray;
+		}
+	    
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:15px;">
+	<div class="row" style="background-color: #C60000;">
+		<!--nav-->
+		<div class="col-md-6 col-xs-6">
+			<ul class="nav nav-pills">
+	             <li class="active"><a href="__GROUP__/Msg/sendMsg">短信发送</a></li>
+	             <li><a href="__GROUP__/Msg/searchMsg">短信查询</a></li>
+	             <li class="dropdown" >
+	             <a class="dropdown-toggle" data-toggle="dropdown" href="#">人员分组 <b class="caret"></b></a>
+	             <ul class="dropdown-menu">
+	                <li><a href="__GROUP__/Msg/userManage" >人员管理</a></li>
+	                <li><a href="__GROUP__/Msg/groupManage">分组管理</a></li>
+	                <li><a href="__GROUP__/Msg/userGroupRel">人员分组关系</a></li>
+	             </ul>
+	             </li>
+        	 </ul>
+		</div>
+		<!--end nav-->
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-4 col-xs-4"></div>
+		<div class="col-md-4 col-xs-4">
+			<select class="form-control" id="group">
+				<option value=0>--选择分组--</option>
+				<volist name="group" id="vo">
+					<option value={$vo.id}>{$vo.name}</option>
+				</volist>
+			</select>
+		</div>
+		<div class="col-md-4 col-xs-4"></div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-4 col-xs-4"></div>
+		<div class="col-md-4 col-xs-4">
+			<textarea class="form-control" rows="10" id="words" onKeyUp="cal_words()" wrap="soft">{$msg}</textarea>
+			<p style="text-align: right;">还能输入<span id="remain">180</span>个字</p>
+		</div>
+		<div class="col-md-4 col-xs-4"></div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-4 col-xs-4"></div>
+		<div class="col-md-4 col-xs-4">
+			<button type="button" class="btn btn-large btn-block btn-success" id="send">发送短信</button>
+		</div>
+		<div class="col-md-4 col-xs-4"></div>
+	</div>
+	
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script>
+$(function (){
+	$("#send").click(function(){
+		if($("#group").val()==0){
+			alert("请选择分组！");
+			return 0;
+		}
+		 var r=confirm("【发送的分组】 "+$("#group option:selected").text()+"\r【发送的内容】 "+$("#words").val()+"\r确认是否发送?");
+		 if(r==true){
+			var data="words="+$("#words").val()+"&groupid="+$("#group").val();
+			$.ajax({
+				url: '/index.php/Msg/sendMsgHandler',
+				dataType: 'json',
+				type: 'POST',
+				cache:false,
+				data:data,
+				success: function(msg){
+					if(msg.status){
+						 $("#group").val(0);//重置分组
+						 alert("发送成功！");
+					}else{
+						alert("发送失败！");
+					}
+				},
+				error:function(){
+					alert("发生错误！");
+				}
+			});
+		}else{
+			return 0;
+		}
+		
+	});	
+});
+
+function cal_words(){
+	 var words=$("#words").val().length;
+	 //console.log(words);
+	 if(words<180){
+	 	$("#remain").html(180-parseInt(words));
+	 }else{
+		 $("#remain").html(0);
+	 }
+}
+</script>
+</body>
+</html>

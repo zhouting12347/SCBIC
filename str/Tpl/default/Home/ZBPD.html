@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #A8A8A8;
+			color:#FFFFFF;
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" style="padding:10px 30px;"><img src="img/LOGO.png" alt=""></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">流程中心</a></li>
+        <li class="dropdown active">
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">广播电视监测<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="JSJC.html">技术监测</a></li>
+            <li class="active"><a href="ZBPD.html">直播频道</a></li>
+          </ul>
+        </li>
+        <li><a href="FFTPJC.html">非法调频监测</a></li>
+        <li><a href="#">预警转发</a></li>
+        <li><a href="#">指挥调度</a></li>
+        <li><a href="#">管理中心</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" style="padding:5px;"><img src="img/admin.png" alt=""></a></li>
+        <li><a href="#">欢迎您，管理员</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav><!-- 导航栏结束 -->
+
+<div class="container-fluid">
+	<div class="row">
+<!-- 左边栏 -->
+		<div class="col-md-12 col-xs-12">
+		  	<div class="panel" style="background-color:#E8E8E8;">
+		  		<div class="panel-heading" style="background-color:#C60000;"><h3>直播流查看</h3></div>
+		  		<div class="panel-body" style="padding:25px;">
+		  			<div class="row">
+		  				<div class="col-md-6">
+		  					<div class="row">
+			  					<div class="form-group col-md-10">
+								   <input type="text" class="form-control" placeholder="Search">
+								</div>
+								<button type="submit" class="btn btn-primary">查询</button>
+							</div>
+							<div class="row">
+			  					<div class="col-md-12">
+								   <table class="table table-striped" id="TB01">
+								   		<thead>
+								   			<tr>
+												<th>频道名称</th>
+												<th>直播地址</th>
+											</tr>
+								   		</thead>
+								   		<tbody>
+								   			<tr>
+								   				<td>2017-01-01 22:12:00</td>
+								   				<td>2017-01-01 22:12:00</td>
+								   			</tr>
+								   			<tr>
+								   				<td>2017-01-01 22:12:00</td>
+								   				<td>2017-01-01 22:12:00</td>
+								   			</tr>
+								   		</tbody>
+									</table>
+								</div>
+							</div>
+		  				</div>
+		  				<div class="col-md-6">
+		  					<div class="row">
+		  						<div class="col-xs-8 col-xs-offset-2">
+		  							<video src="weixing.ts" width="100%" poster="img/show.jpg"></video>
+					  			</div>
+		  					</div>
+		  				</div>
+		  			</div>
+		  		</div>
+			</div>
+		</div>
+<!-- 左边栏结束 -->
+	</div>
+</div>
+
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

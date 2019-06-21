@@ -1,0 +1,47 @@
+<include file="Public/header" />
+<style>
+	tr{height:50px;}		
+	lable{width:100px;}
+</style>		
+<body style="background-color:white;padding:10px;font-size:16px">
+	<form method="post" action="__GROUP__/RBAC/editRoleHandler" id="form1">
+	<table width="100%" border="0" cellpadding="2" cellspacing="0">
+		<tr>
+			<td><label>角色名称：</label><input type="text" name="name" style="width:250px" value={$role.name}></td>
+		</tr>
+		<tr>			
+			<td>
+				<label>状态：</label>
+				<input name="status" type="radio" class="ace"  id="c1" value="1" ><span class="lbl">开通</span>
+				<input name="status" type="radio" class="ace"  id="c2" value="0" ><span class="lbl">禁用</span>
+			</td>
+		</tr>
+		<tr>
+			<td><label>备注：</label><textarea class="form-control" id="form-field-8" rows="2" name="comment">{$role.comment}</textarea></td>
+		</tr>
+		<tr align="center" style="height:90px">
+			<td colspan="2">
+				<button class="btn btn-info" type="submit"><i class="ace-icon fa fa-check bigger-110"></i>保存</button>
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				<button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i>重置</button>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="id" value="{$role.id}" />
+	<input type="hidden" id="status" value={$role.status} />
+	</form>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		//checkbox选中
+		if($("#status").val()==1){
+			$("#c1").attr("checked","checked");
+		}else if($("#status").val()==0){
+			$("#c2").attr("checked","checked");
+		}
+	});
+</script>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #C8C8C8;
+			cursor:pointer;
+		}
+		table tbody {
+	        display:block;
+	    }
+	    table thead, tbody tr {
+	        display:table;
+	        width:100%;
+	        table-layout:fixed;
+	    }
+	    table thead {
+	        width: calc( 100% - 1em )
+	    }
+		.nav li a {
+			color:white;
+	    }
+	    .nav li a:hover{
+			background-color: #545454;
+	    }
+		.dropdown-menu{
+			background-color: gray;
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:15px;">
+	<!-- 用户表 -->
+	<div class="row">
+		<div class="col-md-12 col-xs-12" >
+		   <table class="table table-striped" id="TB01">
+		   		<thead>
+		   			<tr>
+						<th>手机号</th>
+						<th>姓名</th>
+						<th>成员单位</th>
+						<th>职务</th>
+						<th>发送结果</th>
+						<th>发送时间</th>
+						<th>送达时间</th>
+					</tr>
+		   		</thead>
+		   		<tbody>
+		   			<volist name="response" id="vo">
+		   				<tr>
+			   				<td>{$vo.mobile}</td>
+							<td>{$vo.name}</td>
+							<td>{$vo.depart}</td>
+							<td>{$vo.duty}</td>
+			   				<if condition="$vo.result eq 'DELIVRD'">
+			   					<td style="color:green">成功</td>
+			   				<else/>
+			   					<td style="color:red">失败（{$vo.result}）</td>
+			   				</if>
+			   				<td>{$vo.sendTime}</td>
+			   				<td>{$vo.reportTime}</td>
+		   				</tr>
+		   			</volist>
+		   		</tbody>
+			</table>
+		</div>
+		<div id="foot" style="width:100%;text-align: center;">
+				<a href="http://dev.netease.im/docs/product/%E7%9F%AD%E4%BF%A1/%E7%9F%AD%E4%BF%A1%E7%8A%B6%E6%80%81%E7%A0%81"  target="_blank">短信状态码</a>
+		</div>
+	</div>
+	<!-- end 用户表 -->
+	
+
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+
+</body>
+</html>

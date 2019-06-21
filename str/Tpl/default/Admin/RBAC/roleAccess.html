@@ -1,0 +1,31 @@
+<include file="Public/header" />
+<body style="padding:10px;">
+	<form class="row col-xs-12" method="post" action="__GROUP__/RBAC/roleAccessHandler">
+		<volist name='roles' id='vo'>
+			<small style="margin-left:15px">
+				<label class="middle">
+					<input class="ace CheckedAll" type="checkbox" value={$vo.id} name="role_id[]">
+					<span class="lbl">{$vo.name}</span>
+				</label>
+			</small>
+			<br>
+		</volist>
+		<input type="hidden"  name='userId'  value={$userId} />
+		<div class="col-xs-12 center">
+			<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i>提交</button>
+		</div>
+	</form>
+	<volist name="userRoles" id="vo">
+		<input type="hidden"  id="userRoles" value={$vo.role_id} />
+	</volist>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery(function($) {
+		//勾选用户的已分配的角色
+		$("input[id='userRoles']").each(function(i){
+			   $("input[value='"+$(this).val()+"']").prop("checked","checked");
+		});
+	})
+</script>
+</body>
+</html>

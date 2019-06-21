@@ -1,0 +1,127 @@
+<include file="Public/header" />
+<style>
+.a-upload {
+   	height: 30px;
+    line-height: 8px;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 30px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer
+}
+
+</style>
+<body style="background-color:white">
+<div class="contianer" style="padding:20px">
+	<form class="row"  method="post" enctype ="multipart/form-data" action="__GROUP__/Manage/addEquipmentHandler">
+	
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 设备ID </label>
+			<input type="text"  id="form-field-1"  placeholder="请填写设备ID" name="EquipmentID" class="col-sm-8" style="width:250px"/>
+		</div>
+		
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 序列号 </label>
+			<input type="text"  id="form-field-1"  placeholder="请填写设备序列号" name="EquipmentSerial" class="col-sm-8" style="width:250px"/>
+		</div>
+		
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 设备名称 </label>
+			<input type="text"  id="form-field-1"  placeholder="请填写名称" name="EquipmentName" class="col-sm-8" style="width:250px"/>
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 设备类型 </label>
+			<select class="chosen-select" id="form-field-1" data-placeholder="请选择设备类型" name="EquipmentType" style="width:250px">
+				<option value="">  </option>
+				<option value="游机">游机</option>
+				<option value="镜头">镜头</option>
+				<option value="小蜜蜂">小蜜蜂</option>
+				<option value="耳麦">耳麦</option>
+				<option value="灯光">灯光</option>
+				<option value="抠像">抠像</option>
+			</select>
+		</div>
+
+		<div class="col-sm-12">
+			<label for="form-field-8">设备参数</label>
+			<textarea class="form-control" id="form-field-8" placeholder="设备参数" rows="3" name="EquipmentParam" ></textarea>
+		</div>
+		<div class="col-sm-12 space-10"></div>
+		<div class="col-sm-12">
+			<label for="form-field-8">设备简介</label>
+			<textarea class="form-control" id="form-field-8" placeholder="设备简介" rows="3" name="EquipmentInfo" ></textarea>
+		</div>
+		<div class="col-sm-12 space-10"></div>
+		<div class="form-group col-sm-12">
+			<input type="file" name="photo" id="photo" >
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label class="col-sm-4 control-label" for="form-field-1" style="width:80px;text-align:right;"> 状态设置 </label>
+			<label style="margin:0">
+				<input name="EquipmentStatus" type="radio" class="ace" value="available"  checked="checked">
+				<span class="lbl">可用</span>
+			</label>
+			<label style="margin-left:15px">
+				<input name="EquipmentStatus" type="radio" class="ace" value="leased" >
+				<span class="lbl">已借用</span>
+			</label>
+			<label style="margin-left:15px">
+				<input name="EquipmentStatus" type="radio" class="ace" value="bad">
+				<span class="lbl">损坏</span>
+			</label>
+		</div>
+
+		<br>
+		<p style="text-align: center;">
+			<button type="submit" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i>提 交</button>
+			<a id="cData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm ui-state-hover"><i class="ace-icon fa fa-times"></i>取 消</a>
+		</p>
+	</form>
+</div>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/js/ace-elements.min.js"></script>
+<script src="__PUBLIC__/js/ace.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="__PUBLIC__/laypage/laypage.js"></script>
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	jQuery(function($){
+		//获取窗口索引
+		var index = parent.layer.getFrameIndex(window.name);
+		
+		//【取消】
+		$("#cData").click(function(){
+			//关闭填出层
+			parent.layer.closeAll();
+		});
+
+		$('#photo').ace_file_input({
+			no_file:'点击上传1张图片 ...',
+			btn_choose:'Choose',
+			btn_change:'Change',
+			droppable:false,
+			onchange:null,
+			whitelist:'gif|png|jpg|jpeg',
+			blacklist:'exe|php'
+		});
+		
+		// chosen.js
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+	});
+</script>
+</html>

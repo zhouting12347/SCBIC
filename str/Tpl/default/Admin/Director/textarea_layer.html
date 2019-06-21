@@ -1,0 +1,38 @@
+<include file="Public/header" />
+<body style="background-color: white;padding:10px">
+	<div>
+		<textarea autofocus class="form-control" id="form-field-8" rows="6" cols="20" placeholder=""></textarea>
+	</div>
+	<div class="col-xs-12 space-10"></div>
+	<p style="text-align: center;">
+			<a id="sData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i>提 交</a>
+			<a id="cData" class="fm-button ui-state-default ui-corner-all fm-button-icon-left btn btn-sm ui-state-hover"><i class="ace-icon fa fa-times"></i>取 消</a>
+	</p>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/js/jquery.dataTables.bootstrap.js"></script>
+<script src="__PUBLIC__/js/ace-elements.min.js"></script>
+<script src="__PUBLIC__/js/ace.min.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script src="__PUBLIC__/laypage/laypage.js"></script>
+
+<script type="text/javascript">
+	jQuery(function($){
+		//获取窗口索引
+		var index = parent.layer.getFrameIndex(window.name);
+		//【提交】
+		$("#sData").click(function(){
+			parent.layer.msg("提交成功！",{time:1300});
+			parent.layer.close(index);
+		});
+		
+		//【取消】
+		$("#cData").click(function(){
+			//关闭填出层
+			parent.layer.closeAll();
+		});
+	});
+</script>
+</html>

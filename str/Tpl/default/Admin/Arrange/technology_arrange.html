@@ -1,0 +1,305 @@
+<include file="Public/header" />
+<!-- <link rel="stylesheet" href="__PUBLIC__/css/chosen.css" /> -->
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+
+			<!-- /section:basics/sidebar -->
+<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+	<div class="page-content">
+		<div class="page-content-area">
+			<div class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp
+								<if condition="$week eq 'this'">本周任务
+								<else />下周任务</if>
+							</div>
+							<div>
+								<!-- <div class="col-xs-6">
+									<button class="btn btn-sm btn-pink" style="margin:5px 0">
+										快速分配
+										<i class="ace-icon fa fa-share icon-on-right align-middle"></i>
+									</button>
+								</div> -->
+							
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>MEMO</th>
+											<th>外拍</th>
+											<th>外拍时间</th>
+											<th>灯光</th>
+											<th>摄像</th>
+											<th>小蜜蜂</th>
+											<if condition="$舞美组长 eq '舞美组长'" ><th>舞美</th></if>
+											<if condition="$现场统筹组长 eq '现场统筹组长'" ><th>现场统筹</th></if>
+											<if condition="$灯光组长 eq '灯光组长'" ><th>灯光</th></if>
+											<if condition="$摄像组长 eq '摄像组长'" ><th>摄像</th></if>
+											<if condition="$TD组长 eq 'TD组长'" ><th>TD</th></if>
+											<if condition="$制作修改组长 eq '制作修改组长'" ><th>制作/修改</th></if>
+											<if condition="$播出组长 eq '播出组长'" ><th>播出人员</th></if>
+											<if condition="$VIDEO组长 eq 'VIDEO组长'" ><th>VIDEO</th></if>
+											<if condition="$AUDIO组长 eq 'AUDIO组长'" ><th>AUDIO</th></if>
+											<if condition="$AUDIOTS组长 eq 'AUDIOTS组长'" ><th>AUDIO.TS</th></if>
+											<if condition="$上传组长 eq '上传组长'" ><th>上传人员</th></if>
+											<!-- <th>操作</th> -->
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="program" id="vo">
+										<tr>
+											<td>{$vo.ProgramDate}</td>
+											<td>{$vo.ProgramWeek}</td>
+											<td>{$vo.BroadChannel}</td>
+											<td>{$vo.BroadTime}</td>
+											<td>{$vo.VideoSite}</td>
+											<td>{$vo.ProgramReq}</td>
+											<td>{$vo.PD}</td>
+											<td>{$vo.MEMO}</td>
+											<td><if condition="$vo.IfGoOut eq 1" >是<else />/</if></td>
+											<td>{$vo.OutDate}</td>
+											<td><if condition="$vo.IfLight eq 1" >需要</if></td>
+											<td><if condition="$vo.IfCamera eq 1" >需要</if></td>
+											<td><if condition="$vo.IfBee eq 1" >需要</if></td>
+											<if condition="($舞美组长 eq '舞美组长') AND ($vo.IfWMSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="wm" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($舞美组长 eq '舞美组长') AND ($vo.IfWMSelected eq 1)" />
+												<td><if condition="$vo.WM neq null" >({$vo.WM})</if><button class="btn btn-xs btn-success" role="wm" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($现场统筹组长 eq '现场统筹组长') AND ($vo.IfLiveSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="live" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($现场统筹组长 eq '现场统筹组长') AND ($vo.IfLiveSelected eq 1)" />
+												<td><if condition="$vo.Live1 neq null" >({$vo.Live1})</if>
+														<if condition="$vo.Live2 neq null" >({$vo.Live2})</if>
+														<button class="btn btn-xs btn-success" role="live" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($灯光组长 eq '灯光组长') AND ($vo.IfLightSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="light" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($灯光组长 eq '灯光组长') AND ($vo.IfLightSelected eq 1)" />
+												<td><if condition="$vo.Light1 neq null" >({$vo.Light1})</if>
+														<if condition="$vo.Light2 neq null" >({$vo.Light2})</if>	
+														<if condition="$vo.Light3 neq null" >({$vo.Light3})</if>
+														<button class="btn btn-xs btn-success" role="light" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($摄像组长 eq '摄像组长') AND ($vo.IfCameraSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="camera" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($摄像组长 eq '摄像组长') AND ($vo.IfCameraSelected eq 1)" />
+												<td><if condition="$vo.Camera1 neq null" >({$vo.Camera1})</if>
+														<if condition="$vo.Camera2 neq null" >({$vo.Camera2})</if>
+														<if condition="$vo.Camera3 neq null" >({$vo.Camera3})</if>
+														<if condition="$vo.Camera4 neq null" >({$vo.Camera4})</if>
+														<button class="btn btn-xs btn-success" role="camera" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($TD组长 eq 'TD组长') AND ($vo.IfTDSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="td" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($TD组长 eq 'TD组长') AND ($vo.IfTDSelected eq 1)" />
+												<td><if condition="$vo.TD neq null" >({$vo.TD})</if>
+														<button class="btn btn-xs btn-success" role="td" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($制作修改组长 eq '制作修改组长') AND ($vo.IfProduceModifySelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="produceModify" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($制作修改组长 eq '制作修改组长') AND ($vo.IfProduceModifySelected eq 1)" />
+												<td><if condition="$vo.ProduceModify neq null" >({$vo.ProduceModify})</if>
+														<button class="btn btn-xs btn-success" role="produceModify" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($播出组长 eq '播出组长') AND ($vo.IfBroadCastSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="broadCast" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($播出组长 eq '播出组长') AND ($vo.IfBroadCastSelected eq 1)" />
+												<td><if condition="$vo.BroadCast neq null" >({$vo.BroadCast})</if>
+														<button class="btn btn-xs btn-success" role="broadCast" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($VIDEO组长 eq 'VIDEO组长') AND ($vo.IfVideoSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="video" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($VIDEO组长 eq 'VIDEO组长') AND ($vo.IfVideoSelected eq 1)" />
+												<td><if condition="$vo.Video1 neq null" >({$vo.Video1})</if>
+												<if condition="$vo.Video2 neq null" >({$vo.Video2})</if>
+														<button class="btn btn-xs btn-success" role="video" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($AUDIO组长 eq 'AUDIO组长') AND ($vo.IfAudioSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="audio" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($AUDIO组长 eq 'AUDIO组长') AND ($vo.IfAudioSelected eq 1)" />
+												<td><if condition="$vo.Audio neq null" >({$vo.Audio})</if>
+														<button class="btn btn-xs btn-success" role="audio" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($AUDIOTS组长 eq 'AUDIOTS组长') AND ($vo.IfAudioTSSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="audioTS" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($AUDIOTS组长 eq 'AUDIOTS组长') AND ($vo.IfAudioTSSelected eq 1)" />
+												<td><if condition="$vo.AudioTS neq null" >({$vo.AudioTS})</if>
+														<button class="btn btn-xs btn-success" role="audioTS" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+											<if condition="($上传组长 eq '上传组长') AND ($vo.IfUploadSelected eq null)" >
+												<td><button class="btn btn-xs btn-info" role="upload" programID="{$vo.Id}">排班</button></td>
+												<elseif condition="($上传组长 eq '上传组长') AND ($vo.IfUploadSelected eq 1)" />
+												<td><if condition="$vo.Upload neq null" >({$vo.Upload})</if>
+														<button class="btn btn-xs btn-success" role="upload" programID="{$vo.Id}">人员修改</button></td>
+												<else />
+											</if>
+											
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+					<br>	
+					<!-- 排班人员表格 -->
+					<div class="room_borderWrap">
+						<div id="page1" style="text-align: center;"></div>
+					</div>
+					<!-- 会议室表格 End-->
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content-area -->
+	</div><!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+	<script type="text/javascript">
+	//操作 0选择会议室 1修改会议室
+	var operate;
+		jQuery(function($){
+			//加载layer扩展方法
+			layer.config({
+			    extend: 'extend/layer.ext.js'
+			});       
+			$('.room_borderWrap').slideUp();
+			$('#table1').dataTable({
+				searching: true,
+				lengthChange: false,
+				lengthMenu: [8],
+				info: false,
+				stateSave: true,//保存表格状态
+				language:{
+		            "url": "/Public/font/zh_CN.txt"
+		    	}
+			});
+
+		//排班层
+		$("button[class='btn btn-xs btn-info']").click(function(){
+			var layerName="/index.php/Arrange/arrange_layer?layerName="+$(this).attr("role")+"&programID="+$(this).attr("programID");
+			layer.open({
+			    type: 2,
+			    title:"排班选择",
+			    scrollbar: false,
+			    area: ['400px', '600px'],
+			    content: layerName,
+			    maxmin: false,
+			    shadeClose:true,
+			});
+		});
+		
+		//排班编辑层
+		$("button[class='btn btn-xs btn-success']").click(function(){
+			var layerName="/index.php/Arrange/arrange_edit_layer?layerName="+$(this).attr("role")+"&programID="+$(this).attr("programID");
+			layer.open({
+			    type: 2,
+			    title:"排班修改",
+			    scrollbar: false,
+			    area: ['400px', '600px'],
+			    content: layerName,
+			    maxmin: false,
+			    shadeClose:true,
+			});
+		});
+		
+	});
+	</script>
+	</body>
+</html>

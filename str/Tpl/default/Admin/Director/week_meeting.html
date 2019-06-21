@@ -1,0 +1,301 @@
+<include file="Public/header" />
+<!-- <link rel="stylesheet" href="__PUBLIC__/css/chosen.css" /> -->
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: orange;">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp未完成会议
+							</div>
+							<!-- <div class="dataTables_borderWrap"> -->
+							<div>
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>SH</th>
+											<th>MD</th>
+											<th>MEMO</th>
+											<th>会议室</th>
+											<th>开始时间</th>
+											<th>结束时间</th>
+											<th>会议内容</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="meet_unfinish" id="vo">
+										<tr>
+											<td>{$vo.ProgramDate}</td>
+											<td>{$vo.ProgramWeek}</td>
+											<td>{$vo.BroadChannel}</td>
+											<td>{$vo.BroadTime}</td>
+											<td>{$vo.VideoSite}</td>
+											<td>{$vo.ProgramReq}</td>
+											<td>{$vo.PD}</td>
+											<td>{$vo.SH}</td>
+											<td>{$vo.MD}</td>
+											<td>{$vo.MEMO}</td>
+											<td>{$vo.RoomName}</td>
+											<td>{$vo.MeetStartTime}</td>
+											<td>{$vo.MeetEndTime}</td>
+											<td>{$vo.MeetInfo}</td>
+											<td>
+												<if condition="$vo.PD_Already eq 1"><button class="btn btn-xs btn-warning" style="margin-bottom:3px" programID="{$vo.Id}">确认会议结束</button><br><else />
+												<button class="btn btn-xs btn-primary" style="margin-bottom:3px" programID="{$vo.Id}">确认参加</button><br></if>
+												<if condition="$vo.PD_Already eq null"><button class="btn btn-xs btn-pink" programID="{$vo.Id}">无法参加</button></if>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+					<br><br>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp已完成会议
+							</div>
+							<!-- <div class="dataTables_borderWrap"> -->
+							<div>
+								<table id="table2" class="table table-striped table-bordered table-hover" >
+									<thead>
+										<tr>
+											<th>DATE</th>
+											<th>WEEK</th>
+											<th>CHANNEL</th>
+											<th>TIME</th>
+											<th>STUDIO</th>
+											<th>PROGRAM</th>
+											<th>PD</th>
+											<th>SH</th>
+											<th>MD</th>
+											<th>MEMO</th>
+											<th>会议室</th>
+											<th>开始时间</th>
+											<th>结束时间</th>
+											<th>会议内容</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									<volist name="meet_finish" id="vo">
+										<tr>
+											<td>{$vo.ProgramDate}</td>
+											<td>{$vo.ProgramWeek}</td>
+											<td>{$vo.BroadChannel}</td>
+											<td>{$vo.BroadTime}</td>
+											<td>{$vo.VideoSite}</td>
+											<td>{$vo.ProgramReq}</td>
+											<td>{$vo.PD}</td>
+											<td>{$vo.SH}</td>
+											<td>{$vo.MD}</td>
+											<td>{$vo.MEMO}</td>
+											<td>{$vo.RoomName}</td>
+											<td>{$vo.MeetStartTime}</td>
+											<td>{$vo.MeetEndTime}</td>
+											<td>{$vo.MeetInfo}</td>
+											<td>
+												<button class="btn btn-xs btn-primary finish" style="margin-bottom:3px" programID="{$vo.Id}">编辑会议总结</button>
+											</td>
+										</tr>
+									</volist>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+<script src="__PUBLIC__/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){
+			// $("#send1").slideUp();
+			//$("#send2").slideUp();
+			$('#table1').dataTable({
+				searching: true,
+				lengthChange: false,
+				lengthMenu: [5],
+				info: true,
+				stateSave: true,//保存表格状态
+				language:{
+		            "url": "/Public/font/zh_CN.txt"
+		    	}
+			});
+			
+			$('#table2').dataTable({
+				searching: true,
+				lengthChange: false,
+				lengthMenu: [5],
+				info: true,
+				stateSave: true,//保存表格状态
+				language:{
+		            "url": "/Public/font/zh_CN.txt"
+		    	}
+			});
+
+			//【会议详情】按钮
+			$("button[class='btn btn-xs btn-info']").click(function(){
+				layer.alert('会议时间：09:30 <br> 会议地点：二号会议室 <br> 会议内容：讨论外拍地点');
+			});
+
+			//【确定参加】按钮
+			$("button[class='btn btn-xs btn-primary']").click(function(){
+				var programID=$(this).attr("programID");
+				layer.confirm('是否确认参加会议?', {icon: 3, title:'提示'}, function(index){
+					$.ajax({
+						url: '/index.php/Director/attendMeetingHandler?programID='+programID,
+						dataType: 'json',
+						type: 'GET',
+						success: function(msg) {
+							if(!msg.status){
+								//发送失败
+								layer.alert(msg.info, {icon: 2},function(index){location.reload();}); 
+							}else{
+								//发送成功
+								layer.alert(msg.info, {icon: 1},function(index){location.reload();}); 
+							}
+						}
+					});
+				});
+			});
+			
+			//加载layer扩展方法
+			layer.config({
+			    extend: 'extend/layer.ext.js'
+			});
+
+			//【无法参加】按钮
+			$("button[class='btn btn-xs btn-pink']").click(function(){
+				var programID=$(this).attr("programID");
+				var index = layer.open({
+				    type: 2,
+				    title:"请填写原因",
+				    content: '/index.php/Director/reason_layer?programID='+programID,
+				    area: ['400px', '255px'],
+				    maxmin: false
+				});
+			});
+
+			//【确认会议结束】按钮
+			$("button[class='btn btn-xs btn-warning']").click(function(){
+				var programID=$(this).attr("programID");
+				var index = layer.open({
+				    type: 2,
+				    title:"请填写会议小结",
+				    content: '/index.php/Director/finish_meeting_layer?programID='+programID,
+				    area: ['400px', '255px'],
+				    maxmin: false
+				});
+			});
+			
+			//【编辑会议总结】按钮
+			$("button[class='btn btn-xs btn-primary finish']").click(function(){
+				var programID=$(this).attr("programID");
+				var index = layer.open({
+				    type: 2,
+				    title:"编辑会议小结",
+				    content: '/index.php/Director/edit_finish_meeting_layer?programID='+programID,
+				    area: ['400px', '255px'],
+				    maxmin: false
+				});
+			});
+			
+			
+			
+			
+		});
+		
+		function cancelSelected(){
+			$("button[class='btn btn-xs btn-info']").css("border-color","#6fb3e0");
+		}
+		</script>
+	</body>
+</html>

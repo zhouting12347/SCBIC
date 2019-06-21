@@ -1,0 +1,217 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__PUBLIC__/css/chosen.css" />
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<img src="__PUBLIC__/images/cj_logo.png" width="25" height="25">
+							东方购物质效考核系统
+						</small>
+					</a>
+					<!-- /section:basics/navbar.layout.brand -->
+				</div>
+<include file="Public/userbar" />
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+<include file="Public/menu" />
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<!-- /section:basics/content.searchbox -->
+				</div>
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" style="background-color: rgb(48,126,204);">
+								<i class="ace-icon fa fa-table"></i>&nbsp&nbsp模特库
+							</div>
+							<!-- <div class="dataTables_borderWrap"> -->
+							<div>
+								<table id="table1" class="table table-striped table-bordered table-hover" >
+									<a href="#" class="btn btn-link"><i class="ace-icon fa fa-plus-circle bigger-120 green"></i>添加模特</a>
+									<thead>
+										<tr>
+											<th>姓名</th>
+											<th>性别</th>
+											<th>年龄</th>
+											<th>身高</th>
+											<th>体重</th>
+											<th>照片</th>
+											<th>简介</th>
+											<th>费用</th>
+											<th>视频</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>张三</td>
+											<td>女</td>
+											<td>25</td>
+											<td>172</td>
+											<td>55kg</td>
+											<td><button class="btn btn-xs btn-pink">照片<i class="ace-icon fa  fa-camera bigger-110 icon-on-right"></i></button></td>
+											<td><button class="btn btn-xs btn-info info">简介<i class="ace-icon fa fa-print bigger-110 icon-on-right"></i></button></td>
+											<td>450</td>
+											<td><button class="btn btn-xs btn-purple">视频<i class="ace-icon fa fa-film bigger-110 icon-on-right"></i></button></td>
+											<td><span class="label label-success">空闲</span></td>
+											<td><button class="btn btn-xs btn-success">加入档期</button> <button class="btn btn-xs btn-info">编辑</button> <button class="btn btn-xs btn-danger">删除</button></td>
+										</tr>
+										<tr>
+											<td>李四</td>
+											<td>女</td>
+											<td>22</td>
+											<td>170</td>
+											<td>52kg</td>
+											<td><button class="btn btn-xs btn-pink">照片<i class="ace-icon fa  fa-camera bigger-110 icon-on-right"></i></button></td>
+											<td><button class="btn btn-xs btn-info info">简介<i class="ace-icon fa fa-print bigger-110 icon-on-right"></i></button></td>
+											<td>500</td>
+											<td><button class="btn btn-xs btn-purple">视频<i class="ace-icon fa fa-film bigger-110 icon-on-right"></i></button></td>
+											<td><span class="label">档期内</span></td>
+											<td><button class="btn btn-xs disabled">加入档期 </button> <button class="btn btn-xs btn-info">编辑</button> <button class="btn btn-xs btn-danger">删除</button></td>
+										</tr>
+										<tr>
+											<td>王五</td>
+											<td>女</td>
+											<td>23</td>
+											<td>171</td>
+											<td>53kg</td>
+											<td><button class="btn btn-xs btn-pink">照片<i class="ace-icon fa  fa-camera bigger-110 icon-on-right"></i></button></td>
+											<td><button class="btn btn-xs btn-info info">简介<i class="ace-icon fa fa-print bigger-110 icon-on-right"></i></button></td>
+											<td>500</td>
+											<td><button class="btn btn-xs btn-purple">视频<i class="ace-icon fa fa-film bigger-110 icon-on-right"></i></button></td>
+											<td><span class="label">档期内</span></td>
+											<td><button class="btn btn-xs disabled">加入档期 </button> <button class="btn btn-xs btn-info">编辑</button> <button class="btn btn-xs btn-danger">删除</button></td>
+										</tr>
+								</tbody>
+							</table>
+							</div><!-- end<div class="dataTables_borderWrap"> -->
+						</div><!-- end col -->
+					</div><!-- end row -->
+					<br>	
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+<include file="Public/footer" />
+<script src="__PUBLIC__/js/chosen.jquery.min.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){
+			$('#table1').dataTable({
+				searching: true,
+				lengthChange: false,
+				lengthMenu: [8],
+				info: true,
+				stateSave: true,//保存表格状态
+				language:{
+		            "url": "/Public/font/zh_CN.txt"
+		    	}
+			});
+			
+			//【照片】按钮
+			$("button[class='btn btn-xs btn-pink']").click(function(){
+				layer.open({
+				    type: 2,
+				    title:"照片",
+				    area: ['400px', '300px'],
+				    content:  '/index.php/Manage/model_image',
+				    maxmin: false
+				});
+			});
+			
+			//【添加模特】按钮
+			$("a[class='btn btn-link']").click(function(){
+				layer.open({
+				    type: 2,
+				    content:  '/index.php/Manage/add_model',
+				    area: ['350px', '630px'],
+				    maxmin: false
+				});
+			});
+			
+			//【模特简介】按钮
+			$("button[class='btn btn-xs btn-info info']").click(function(){
+				layer.open({
+				    type: 2,
+				    content:  '/index.php/Manage/model_info',
+				    area: ['350px', '300px'],
+				    maxmin: false
+				});
+			});
+			
+			//【模特编辑】按钮
+			$("button[class='btn btn-xs btn-info']").click(function(){
+				layer.open({
+				    type: 2,
+				    content:  '/index.php/Manage/add_model',
+				    area: ['350px', '630px'],
+				    maxmin: false
+				});
+			});
+			
+			//【加入档期】按钮
+			$("button[class='btn btn-xs btn-success']").click(function(){
+				layer.msg('操作成功');
+				$(this).attr("class","btn btn-xs disabled");
+			});
+		});
+		</script>
+	</body>
+</html>

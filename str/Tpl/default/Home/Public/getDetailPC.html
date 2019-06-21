@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+	<style>
+		*{
+			font-family:"微软雅黑";
+		}
+		h3{
+			margin:5px 0;
+			padding-left:10px;
+			color:#FFFFFF;
+		}
+		#TB01 thead tr{
+			background-color: #5D5D5D;
+		}
+		#TB01 th{
+			color:#FFFFFF;
+		}
+		#TB01 tbody tr:hover{
+			background-color: #A8A8A8;
+			color:#FFFFFF;
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+<!-- 左边栏 -->
+		<div class="col-md-12 col-xs-12" style="padding:0;">
+		  	<div class="panel" style="background-color:#E8E8E8;">
+		  		<div class="panel-heading" style="background-color:#E17B28;"><h3>报警详情</h3></div>
+		  		<div class="panel-body" style="padding:25px;">
+		  			<div class="row">
+		  				<div class="col-md-6">
+		  					<div class="row">
+		  						<div class="col-xs-9 col-xs-offset-3" style="margin-top:120px;">
+		  							<video src="{$videoURL}" width="100%" controls="controls"></video>
+					  			</div>
+		  					</div>
+		  				</div>
+		  				<div class="col-md-6">
+		  					<div class="row">
+			  					<div class="col-md-12">
+									<form class="form-horizontal">
+									  	<div class="form-group">
+										    <label for="YTRQ" class="col-sm-2 control-label">异态日期:</label>
+										    <div class="col-sm-6">
+										      <input type="email" class="form-control" id="YTRQ" value="{$alarm.alarmDate}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="KSSJ" class="col-sm-2 control-label">开始时间:</label>
+										    <div class="col-sm-6">
+										      <input type="input" class="form-control" id="KSSJ" value="{$alarm.alarmHappentime}">
+										    </div>
+										</div>
+										    <div class="form-group">
+										    <label for="JSSJ" class="col-sm-2 control-label">结束时间:</label>
+										    <div class="col-sm-6">
+										      <input type="email" class="form-control" id="JSSJ" value="{$alarm.alarmEndtime}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="CSSJ" class="col-sm-2 control-label">持续时间:</label>
+										    <div class="col-sm-6">
+										      <input type="input" class="form-control" id="CSSJ"  value="{$alarm.duration}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="XHLX" class="col-sm-2 control-label">信号类型:</label>
+										    <div class="col-sm-6">
+										      <input type="email" class="form-control" id="XHLX" value="{$alarm.signalType}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="PDBH" class="col-sm-2 control-label">频点编号:</label>
+										    <div class="col-sm-6">
+										      <input type="input" class="form-control" id="PDBH" value="{$alarm.frequencyValue}">
+										    </div>
+										</div>
+										<div class="form-group">
+										    <label for="PDMC" class="col-sm-2 control-label">频道名称:</label>
+										    <div class="col-sm-6">
+										      <input type="email" class="form-control" id="PDMC" value="{$alarm.channelName}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="JMMC" class="col-sm-2 control-label">节目名称:</label>
+										    <div class="col-sm-6">
+										      <input type="input" class="form-control" id="JMMC"  value="{$alarm.programName}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="YTLX" class="col-sm-2 control-label">异态类型:</label>
+										    <div class="col-sm-6">
+										      <input type="email" class="form-control" id="YTLX"  value="{$alarm.alarmType}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="PFDJ" class="col-sm-2 control-label">评分登记:</label>
+										    <div class="col-sm-6">
+										      <input type="input" class="form-control" id="PFDJ" value="{$alarm.alarmLevel}">
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="YTMS" class="col-sm-2 control-label">异态描述:</label>
+										    <div class="col-sm-6">
+										      <textarea class="form-control" rows="5" id="YTMS">{$alarm.description}</textarea>
+										    </div>
+									  	</div>
+									  	<div class="form-group">
+										    <label for="YQYTYY" class="col-sm-2 control-label">引起异态原因:</label>
+										    <div class="col-sm-6">
+										      <textarea class="form-control" rows="5" id="YQYTYY">{$alarm.faultReason}</textarea>
+										    </div>
+									  	</div>
+									</form>
+								</div>
+							</div>
+		  				</div>
+		  			</div>
+		  		</div>
+			</div>
+		</div>
+<!-- 左边栏结束 -->
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+</body>
+</html>
