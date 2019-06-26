@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+body{
+	padding:5px;
+}
+.layui-bg-blue,.layui-bg-green,.layui-bg-orange{
+	text-align: center;
+	font-size: 16px;
+}
+
+.layui-table, .layui-table-view{
+	margin: 0;
+}
+
+.layui-table-cell {
+    height: auto;
+    line-height: 20px;
+	font-size: 10px;
+}
+
+.btn-line{
+	margin-top: 2px;
+}

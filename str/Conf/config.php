@@ -7,7 +7,7 @@ return array(
 	'SHOW_ERROR_MSG' => true, // 显示错误信息
 	'APP_GROUP_LIST' => 'Admin,Home',
 	'DEFAULT_GROUP' => 'Home',
-	'DEFAULT_MODULE'=>'TechMonitoring', //默认模块
+	'DEFAULT_MODULE'=>'Index', //默认模块
 	'DB_TYPE' => 'mysqli', // 数据库类型
 	'DB_CHARSET' => 'utf8',
  	'DB_NAME' => 'SCBIC', // 数据库名称
@@ -30,7 +30,7 @@ return array(
 	'TMPL_ACTION_ERROR'     => 'Public:error', // 默认错误跳转对应的模板文件//flag=0 返回上一页，flag=1跳转指定页
 	'TMPL_ACTION_SUCCESS'   => 'Public:success', // 默认成功跳转对应的模板文件//flag=0 刷新父页面，flag=1跳转指定页
 	'PAGE_ROLLPAGE'=>8,//分页栏每页显示的页数
-	//'WSDL'=>'http://10.2.1.35:8010/Portal/WebServices/CusDevWebService.asmx?wsdl',
+	'WSDLYJ'=>'http://10.2.6.235:8010/Portal/WebServices/CusDevWebService.asmx?wsdl',
 	'WSDL'=>'http://10.2.6.235:8010/Portal/Webservices/ExternalStartService.asmx?wsdl',
     'STREAM_URL'=>'http://10.2.1.29/video',
     

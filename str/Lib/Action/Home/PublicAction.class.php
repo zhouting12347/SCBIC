@@ -254,7 +254,7 @@ class PublicAction extends Action
     * @return:
     */
     public function WarningSubmit($station,$wid,$status){
-        $ws=C('WSDL');//webservice服务的地址
+        $ws=C('WSDLYJ');//webservice服务的地址
         $client=new SoapClient ($ws);
         $params=array('warningID'=>$wid,
             'sendDate'=>'',
