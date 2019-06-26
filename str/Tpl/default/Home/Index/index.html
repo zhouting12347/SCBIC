@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="__PUBLIC__/video/video.css">
 <link rel="stylesheet" href="__PUBLIC__/css/index.css">
 </head>
-<body class="layui-layout-body">
+<body class="layui-layout-body" style="overflow: scroll;">
 	<div class="layui-row  layui-col-space5">
 		<!-- 播放器 -->
 		<div class="layui-col-md3  layui-col-space5">
@@ -31,6 +31,60 @@
 				    <source src="https://1akamai-axtest.akamaized.net/routes/lapd-v1-acceptance/www_c4/Manifest.m3u8" type="application/x-mpegURL">
 				  </video-js>
 			</div>
+			<div class="layui-row">
+				<form class="layui-form" action="" id="form1" style="font-size: 10px;">
+		  			<div class="layui-inline">
+					    <label class="layui-form-label">逻辑频道</label>
+					    <div class="layui-input-block">
+					       <select name="C_ID" id="C_ID" lay-search="">
+						    	<option value="">直接选择或搜索</option>
+						    	<volist name="channel" id="vo">
+						    		<option value="{$vo.C_ID}">{$vo.C_Name}</option>
+						    	</volist>
+						    </select>
+			    		</div>
+			  		</div>
+		
+			  		<div class="layui-inline">
+					    <label class="layui-form-label">传输类型</label>
+					    <div class="layui-input-block">
+					       <select name="TT_ID" id="TT_ID">
+						    	<option value=""></option>
+						    	<volist name="transfertype" id="vo">
+						    		<option value="{$vo.TT_ID}">{$vo.TT_Name}</option>
+						    	</volist>
+						    </select>
+			    		</div>
+			  		</div>
+		
+			  		<div class="layui-inline">
+					    <label class="layui-form-label">监测频道</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="MC_Name" id="MC_Name" autocomplete="off" class="layui-input">
+					    </div>
+				    </div>
+				
+					<div class="layui-inline">
+					    <label class="layui-form-label">日期</label>
+					    <div class="layui-input-block">
+					       <input type="text" autocomplete="off" class="layui-input" value="{$date}" id="date"  />
+			    		</div>
+			  		</div> 
+			  		
+				  <div class="layui-block" style="text-align: center;margin-top:10px;">
+					    <button type="submit" class="layui-btn layui-btn-xs">查询</button>
+					    <button type="reset" class="layui-btn layui-btn-primary layui-btn-xs">重置</button>
+				  </div>
+		  		</form>
+			</div>
+			<div class="layui-row">
+				<div class="layui-col-md6">
+					<table class="layui-hide" id="monitorChannelTable"  lay-filter="myMonitorChannelTable"></table>
+				</div>
+				<div class="layui-col-md6">
+					<table class="layui-hide" id="EPGTable"  lay-filter="myEPGTable"></table>
+				</div>
+			</div>
 		</div>
 		<!-- End 播放器 -->
 		
@@ -48,6 +102,14 @@
 			<div class="layui-row">
 				<div class="layui-bg-green">高标清同播监测列表</div>
 				<table class="layui-hide" id="samePlayTable"  lay-filter="mySamePlayTable"></table>
+			</div>
+			<div class="layui-row">
+				<div class="layui-bg-green">重要节目转播监测列表</div>
+				<table class="layui-hide" id="importantTable"  lay-filter="myImportantTable"></table>
+			</div>
+			<div class="layui-row">
+				<div class="layui-bg-green">停机检修监测列表</div>
+				<table class="layui-hide" id="stopTable"  lay-filter="myStopTable"></table>
 			</div>
 		</div>
 		<!-- End 数据表格 -->
@@ -71,6 +133,10 @@ var player1;
 var player2;
 var player3;
 window.onload=function(){
+	layui.laydate.render({
+	  elem: '#date' //指定元素
+	});
+	
 	 var vid1=document.getElementById('vid1');
 	 var vid2=document.getElementById('vid2');
 	 var vid3=document.getElementById('vid3');
@@ -183,17 +249,203 @@ window.onload=function(){
 	    switch(obj.event){
 	    	//批量添加到一审表
 	   		 case "add":
-	   			var checkStatus = table.checkStatus('alarmTable');
+	   			var checkStatus = table.checkStatus('samePlayTable');
 	   			addMultiYishen(checkStatus);
 	    		 break;
 	   		 case "reload":
-	   			 layui.table.reload("alarmTable");
+	   			 layui.table.reload("samePlayTable");
 	   			 break;
 	    }
 	  });
 	  
 	  //监听行双击事件
-	  table.on('rowDouble(myAlarmTable)', function(obj){
+	  table.on('rowDouble(mySamePlayTable)', function(obj){
+		var index = layer.load(1);
+	   	var data = obj.data;
+	    var alarmID=data.alarmId;
+	    //标注选中样式
+	    obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+	    //添加到一审表
+	    addYishen(data);
+	    //接口获取信号监测播放地址
+    	$.ajax({
+    		url: '/index.php/Home/TechMonitoring1/getVideoURL?id='+alarmID,
+    		dataType: 'json',
+    		type: 'GET',
+    		cache:false,
+    		success: function(msg){
+    			if(msg.status==1){
+    				player1.src(msg.data);
+    			}else if(msg.status==0){
+    				layer.msg("点播地址获取失败");
+    			}
+    			layer.close(index);
+    		},
+    		error:function(){
+    			layer.msg("发生错误！");
+    			layer.close(index);
+    		}
+    	});
+	    
+    	//接口获取对比信号播放地址
+    	$.ajax({
+    		url: '/index.php/Home/TechMonitoring1/getRelVideoURL?id='+alarmID,
+    		dataType: 'json',
+    		type: 'GET',
+    		cache:false,
+    		success: function(msg){
+    			if(msg.status==1){
+    				player2.src(msg.data);
+    			}else if(msg.status==0){
+    				layer.msg("点播地址获取失败");
+    			}
+    			layer.close(index);
+    		},
+    		error:function(){
+    			layer.msg("发生错误！");
+    			layer.close(index);
+    		}
+    	});
+	  });
+	  //*************************************************************END高清同播监测表*******************************************************************
+	  
+	  
+	   //*************************************************************重要节目转播监测表*******************************************************************
+	  table.render({
+	    elem: '#importantTable'
+	    ,url:'/index.php/Table/getTableData'
+	    ,toolbar: '#importantToolBar'
+	    //,even:true
+	    ,height:"290"
+		,limit:5
+	    ,limits:[5,20,50,100]
+	    ,where:{tableName:"alarm_message",tableType:"important"}
+	    ,cols: [[
+	       {type:'checkbox'}
+	      ,{field:'MC_Name',title: '转播频道'}
+	      ,{field:'alarmHappentime',width:145,title: '开始时间'}
+	      ,{field:'alarmEndtime',width:145,title: '结束时间'}
+	      ,{field:'duration',title: '持续时间'}
+	      ,{field:'REL_MC_Name',title: '比对频道'}
+	    ]]
+	    ,page: true
+	    ,done: function(res, curr, count){
+	    
+	      }
+	  });
+	  
+	  
+	  //头工具栏事件
+	  table.on('toolbar(myImportantTable)', function(obj){
+	    //console.log(checkStatus);
+	    switch(obj.event){
+	    	//批量添加到一审表
+	   		 case "add":
+	   			var checkStatus = table.checkStatus('importantTable');
+	   			addMultiYishen(checkStatus);
+	    		 break;
+	   		 case "reload":
+	   			 layui.table.reload("importantTable");
+	   			 break;
+	    }
+	  });
+	  
+	  //监听行双击事件
+	  table.on('rowDouble(myImportantTable)', function(obj){
+		var index = layer.load(1);
+	   	var data = obj.data;
+	    var alarmID=data.alarmId;
+	    //标注选中样式
+	    obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+	    //添加到一审表
+	    addYishen(data);
+	    //接口获取信号监测播放地址
+    	$.ajax({
+    		url: '/index.php/Home/TechMonitoring1/getVideoURL?id='+alarmID,
+    		dataType: 'json',
+    		type: 'GET',
+    		cache:false,
+    		success: function(msg){
+    			if(msg.status==1){
+    				player1.src(msg.data);
+    			}else if(msg.status==0){
+    				layer.msg("点播地址获取失败");
+    			}
+    			layer.close(index);
+    		},
+    		error:function(){
+    			layer.msg("发生错误！");
+    			layer.close(index);
+    		}
+    	});
+	    
+    	//接口获取对比信号播放地址
+    	$.ajax({
+    		url: '/index.php/Home/TechMonitoring1/getRelVideoURL?id='+alarmID,
+    		dataType: 'json',
+    		type: 'GET',
+    		cache:false,
+    		success: function(msg){
+    			if(msg.status==1){
+    				player2.src(msg.data);
+    			}else if(msg.status==0){
+    				layer.msg("点播地址获取失败");
+    			}
+    			layer.close(index);
+    		},
+    		error:function(){
+    			layer.msg("发生错误！");
+    			layer.close(index);
+    		}
+    	});
+	  });
+	   
+	  //*************************************************************END 重要节目转播监测表*******************************************************************
+	  
+	  
+	  
+	  //*************************************************************停机检修监测表*********************************************************************
+	   table.render({
+	    elem: '#stopTable'
+	    ,url:'/index.php/Table/getTableData'
+	    ,toolbar: '#stopToolBar'
+	    //,even:true
+	    ,height:"290"
+		,limit:5
+	    ,limits:[5,20,50,100]
+	    ,where:{tableName:"alarm_message",tableType:"stop"}
+	    ,cols: [[
+	       {type:'checkbox'}
+	      ,{field:'MC_Name',title: '监测频道'}
+	      ,{field:'alarmHappentime',width:145,title: '开始时间'}
+	      ,{field:'alarmEndtime',width:145,title: '结束时间'}
+	      ,{field:'duration',title: '持续时间'}
+	      ,{field:'alarmType_name',title: '类型'}
+	    ]]
+	    ,page: true
+	    ,done: function(res, curr, count){
+	    
+	      }
+	  });
+	  
+	  
+	  //头工具栏事件
+	  table.on('toolbar(myStopTable)', function(obj){
+	    //console.log(checkStatus);
+	    switch(obj.event){
+	    	//批量添加到一审表
+	   		 case "add":
+	   			var checkStatus = table.checkStatus('stopTable');
+	   			addMultiYishen(checkStatus);
+	    		 break;
+	   		 case "reload":
+	   			 layui.table.reload("stopTable");
+	   			 break;
+	    }
+	  });
+	  
+	  //监听行双击事件
+	  table.on('rowDouble(myStopTable)', function(obj){
 		var index = layer.load(1);
 	   	var data = obj.data;
 	    var alarmID=data.alarmId;
@@ -221,7 +473,7 @@ window.onload=function(){
     		}
     	});
 	  });
-	  //*************************************************************END高清同播监测表*******************************************************************
+	  //*************************************************************END停机检修监测表****************************************************************
 	  
 	  
 	   //*************************************************************监测处理表*******************************************************************
@@ -230,8 +482,8 @@ window.onload=function(){
 	    ,url:'/index.php/Table/getTableData'
 	    //,even:true
 	    ,height:"290"
-		,limit:5
-	    ,limits:[5,20,50,100]
+		,limit:50
+	    ,limits:[10,20,50,100]
 	    ,where:{tableName:"yishen",tableType:"yishen"}
 	    ,cols: [[
 	       {type:'checkbox'}
@@ -270,6 +522,111 @@ window.onload=function(){
 	 });
 	   
 	  //*************************************************************END监测处理表*******************************************************************
+	  
+	  //*********************************************************直播回看**********************************************************************
+	  
+     table.render({
+		    elem: '#monitorChannelTable'
+			,url:'/index.php/Table/getTableData'
+		    //,even:true
+		    ,height:"300"
+			,limit:10
+		    ,limits:[10,30,50,100]
+		    ,id:'monitorChannelTable'
+		    ,where:{tableName:"volume_monitorchannel",tableType:'monitorchannel_search'}
+		    ,cols: [[
+		       {field:'MC_Name',width:80,title: '监测频道'}
+		      ,{field:'TT_Name',width:80,title: '传输类型'}
+		      ,{field:'MC_Format',title: '高标清',templet:function(item){
+		    	  if(item.MC_Format==0){
+		    		  return "无";
+		    	  }else if(item.MC_Format==1){
+		    		  return "标清";
+		    	  }else if(item.MC_Format==2){
+		    		  return "高清";
+		    	  }else if(item.MC_Format==3){
+		    		  return "4K";
+		    	  }
+		       }}
+		     // ,{field:'action', title: '操作',width:100,align:'center', toolbar: '#tableBar2'}
+		    ]]
+		    ,page: true
+		    ,done: function(res, curr, count){
+		    
+		      }
+		  });
+	  
+     //监听行双击事件
+	  table.on('rowDouble(myMonitorChannelTable)', function(obj){
+	   	var data = obj.data;
+	    var C_ID=data.C_ID;
+	    //标注选中样式
+	    obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+	    var date=$('#date').val();
+		layui.table.reload("EPGTable",{where:{C_ID:C_ID,date:date}});
+	  });
+	  
+     table.render({
+ 	    elem: '#EPGTable'
+ 		,url:'/index.php/Index/video_get_epg_handler'
+ 	    //,even:true
+ 	    ,height:"300"
+ 		,limit:50
+ 	    ,limits:[20,50,100]
+ 	    ,id:'EPGTable'
+ 	    ,cols: [[
+ 	       {field:'time',title: '开始时间'}
+ 	      ,{field:'time',title: '结束时间'}
+ 	      ,{field:'programName',title: '节目名称'}
+ 	    ]]
+ 	    ,page: true
+ 	    ,done: function(res, curr, count){
+ 	 
+ 	      }
+ 	  });
+     
+     //监听行双击事件，播放视频
+	  table.on('rowDouble(myEPGTable)', function(obj){
+		  var index = layer.load(1);
+		  var data = obj.data; //获得当前行数据
+		  var MC_ID=data.MC_ID;
+		  var starttime=data.startTime;
+		  var endtime=data.endTime;
+		  var status=data.status;
+		   //标注选中样式
+		   obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+		   $.ajax({
+	            async: false,
+	            type: "GET",
+	            url:'/index.php/Index/video_get_live_record_url_handler?MC_ID='+MC_ID+"&starttime="+starttime+"&endtime="+endtime+"&status="+status,
+	            dataType: "json",
+	            success: function(msg){
+	            		if(msg.status==1){
+	            			//播放视频地址
+							player3.src(msg.data);  //重置video的src
+							player3.load(msg.data);  //使video重新加载
+	            		}else{
+							layer.msg(msg.info);
+						}
+	            		layer.close(index);
+	              },
+	            error: function(){
+	            	layer.msg("发生错误");
+	            	layer.close(index);
+	            }
+	        });
+	  });
+	  
+     //查询监测频道
+	  $("#form1").submit(function(e){
+		  var C_ID=$("#C_ID").val();
+		  var TT_ID=$("#TT_ID").val();
+		  //var MC_Format=$("#MC_Format").val();
+		  var MC_Name=$("#MC_Name").val();
+		  layui.table.reload("monitorChannelTable",{where:{C_ID:C_ID,TT_ID:TT_ID,MC_Name:MC_Name}});
+		  return false; 
+	  });
+	  
 }
 //添加一审表
 function addYishen(data){
@@ -312,6 +669,18 @@ function addMultiYishen(data){
   </div>
 </script>
 <script type="text/html" id="samePlayToolBar">
+  <div class="layui-btn-container">
+    <button type="button" class="layui-btn layui-btn-sm" style="background-color:#00B000;" lay-event="add">加入相关</button>
+	<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="margin-right: 0px;" lay-event="reload">刷新</button>
+  </div>
+</script>
+<script type="text/html" id="importantToolBar">
+  <div class="layui-btn-container">
+    <button type="button" class="layui-btn layui-btn-sm" style="background-color:#00B000;" lay-event="add">加入相关</button>
+	<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="margin-right: 0px;" lay-event="reload">刷新</button>
+  </div>
+</script>
+<script type="text/html" id="stopToolBar">
   <div class="layui-btn-container">
     <button type="button" class="layui-btn layui-btn-sm" style="background-color:#00B000;" lay-event="add">加入相关</button>
 	<button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="margin-right: 0px;" lay-event="reload">刷新</button>

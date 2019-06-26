@@ -20,3 +20,12 @@ body{
 .btn-line{
 	margin-top: 2px;
 }
+
+.layui-inline{
+	margin-left: -20px;	
+}
+
+.layui-input{
+	width:130px;
+	height:30px;
+}

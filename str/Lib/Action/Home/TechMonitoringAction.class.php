@@ -613,6 +613,35 @@ class TechMonitoringAction extends Action
 		$startSecond=$this->getStartSecond($alarm["alarmHappentime"]);
         $this->ajaxReturn($videoURL,$startSecond,1);
     }
+    
+    /**
+     +--------------------------------
+     * 获取对比视频的播放路径
+     +--------------------------------
+     * @date: 2017年8月7日 下午4:15:08
+     * @author: Str
+     * @param: variable
+     * @return:
+     */
+    public function getRelVideoURL(){
+        $id=$_GET['id'];
+        $Alarm=M(alarm_message);
+        $alarm=$Alarm->where("alarmId=$id")->find();
+        if(!$alarm){
+            $this->ajaxReturn('','',0);
+        }
+        $getVideoUrl=C('get_video_url')."&channelId=".$alarm['relChannelId']."&startTime=".urlencode($alarm['alarmHappentime'])."&endTime=".urlencode($alarm['alarmEndtime']);
+        //echo $getVideoUrl;
+        $res=file_get_contents($getVideoUrl);
+        //dump($res);
+        $res=json_decode($res);
+        $videoURL=$res->url;
+        if(!$videoURL){
+            $this->ajaxReturn($videoURL,'',0);
+        }
+        $startSecond=$this->getStartSecond($alarm["alarmHappentime"]);
+        $this->ajaxReturn($videoURL,$startSecond,1);
+    }
 	
 	  /**
      +--------------------------------

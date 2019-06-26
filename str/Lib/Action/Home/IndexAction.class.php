@@ -11,6 +11,12 @@ class IndexAction extends CommonAction
   * @return:
   */
     public function index(){
+        $Channel=M("volume_channel");
+        $Transfertype=M("volume_transfertype");
+        
+        $this->assign("channel",$Channel->select());
+        $this->assign("transfertype",$Transfertype->select());
+        $this->assign("date",date("Y-m-d",time()));
         $this->display();
     }
 
@@ -68,6 +74,74 @@ class IndexAction extends CommonAction
             $this->ajaxReturn('','操作成功',1);
         }else{
             $this->ajaxReturn('','操作失败',0);
+        }
+    }
+    
+    /**
+     +--------------------------------
+     * 根据C_ID,查询EPG信息
+     +--------------------------------
+     * @date: 2019年5月8日 下午2:20:54
+     * @author: zt
+     * @param: variable
+     * @return:
+     */
+    public function video_get_epg_handler(){
+        $Model=new Model();
+        $Model->db(1,C("DB_EPG"));
+        $limit=$_GET['limit'];
+        $firstRow=($_GET['page']-1)*$limit;
+        $C_ID=$_GET['C_ID'];
+        $date=$_GET['date'];
+        
+        $sql="SELECT COUNT(*) as count FROM t_epg WHERE C_ID='$C_ID' and startDate='$date'";
+        $count=$Model->query($sql);
+        $sql="SELECT * FROM t_epg WHERE C_ID='$C_ID' and startDate='$date' ORDER BY startDate limit $firstRow,$limit";
+        $data=$Model->query($sql);
+        $current=date("Y-m-d H:i:s",time());
+        foreach($data as $k=>$v){
+            $data[$k]['time']=substr($v['startTime'],11,8);
+            if($current>=$v['endTime']){
+                $data[$k]['status']=2;
+            }else if($v['startTime']<=$current&&$current<$v['endTime']){
+                $data[$k]['status']=1;
+            }else if($current<$v['startTime']){
+                $data[$k]['status']=0;
+            }
+        }
+        
+        $result=array(
+            'code'=>0,
+            'msg'=>'',
+            'count'=>$count[0]['count'],
+            'data'=>$data
+        );
+        echo json_encode($result);
+    }
+    
+    public function video_get_live_record_url_handler(){
+        $starttime=$_GET['starttime'];
+        $endtime=$_GET['endtime'];
+        //超时时间设置
+        $opts = array(
+            'http'=>array(
+                'method'=>"GET",
+                'timeout'=>8,
+            )
+        );
+        
+        if($_GET['status']==2){
+            $getVideoUrl=C('get_video_url')."&channelId=".$_GET['MC_ID']."&startTime=".urlencode($starttime)."&endTime=".urlencode($endtime);
+        }else if($_GET['status']==1){
+            $getVideoUrl=C('get_live_url')."&channelId=".$_GET['MC_ID'];
+        }
+        $res=file_get_contents($getVideoUrl,false,stream_context_create($opts));
+        $res=json_decode($res);
+        $videoURL=$res->url;
+        if(!$videoURL){
+            $this->ajaxReturn('','服务器返回播放地址无效',0);
+        }else{
+            $this->ajaxReturn($videoURL,'',1);
         }
     }
 }

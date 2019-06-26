@@ -46,6 +46,53 @@ class TableAction extends Action{
                 $count=$Table->where($condition)->count();
                 break;
                 
+            //重要转播
+            case "important":
+                $condition="sureStatus=0 and alarmType=7000037 and relChannelId<>''";
+                $data=$Table
+                ->where($condition)
+                ->join("left join t_volume_monitorchannel on t_volume_monitorchannel.MC_ID=t_alarm_message.channelId")
+                ->limit($firstRow.','.$limit)
+                ->select();
+                $Monitorchannel=M('volume_monitorchannel');
+                foreach ($data as $k=>$v){
+                    $channel=$Monitorchannel->where("MC_ID='$v[relChannelId]'")->find();
+                    $data[$k]['REL_MC_Name']=$channel['MC_Name'];
+                }
+                $count=$Table->where($condition)->count();
+                break;
+                
+           //停机检修
+            case "stop":
+                $condition="sureStatus=0 and alarmType=7000044";
+                $data=$Table
+                ->where($condition)
+                ->join("left join t_volume_monitorchannel on t_volume_monitorchannel.MC_ID=t_alarm_message.channelId")
+                ->limit($firstRow.','.$limit)
+                ->select();
+                $count=$Table->where($condition)->count();
+                break;
+                
+             //监测频道查询 
+            case "monitorchannel_search":
+                $condition="1=1";
+                empty($_GET['C_ID'])?"":$condition.=" and t_volume_monitorchannel.C_ID=$_GET[C_ID]";
+                empty($_GET['TT_ID'])?"":$condition.=" and t_volume_monitorchannel.TT_ID=$_GET[TT_ID]";
+                is_numeric($_GET['MC_Format'])?$condition.=" and t_volume_monitorchannel.MC_Format=$_GET[MC_Format]":null;
+                empty($_GET['MC_Name'])?"":$condition.=" and t_volume_monitorchannel.MC_Name like '%$_GET[MC_Name]%'";
+                $_GET['MC_IfCCTV']==1?$condition.=" and t_volume_monitorchannel.MC_IfCCTV=1":null;
+                $count=$Table->where($condition)->count();
+                $data=$Table
+                ->join("left join t_volume_transfertype on t_volume_transfertype.TT_ID=t_volume_monitorchannel.TT_ID")
+                ->join("left join t_volume_channel on t_volume_channel.C_ID=t_volume_monitorchannel.C_ID")
+                ->where($condition)
+                ->order("t_volume_monitorchannel.OPTime desc")->limit($firstRow.','.$limit)->select();
+                foreach($data as $k=>$v){
+                    if($v['MC_Format']==2){
+                        $data[$k]['MC_Name']=$data[$k]['MC_Name']."(HD)";
+                    }
+                }
+                break;
                 
             //yishen 一审表
             case "yishen":
