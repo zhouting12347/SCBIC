@@ -7,6 +7,12 @@ body{
 	font-size: 16px;
 }
 
+.layui-bg-cyan{
+	text-align: center;
+	font-size: 16px;
+	background-color: #9b5aa6!important;
+}
+
 .layui-table, .layui-table-view{
 	margin: 0;
 }

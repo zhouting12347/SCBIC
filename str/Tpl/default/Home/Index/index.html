@@ -143,6 +143,28 @@
 					<button type="button" class="layui-btn layui-btn-sm" id="yishen" style="background-color:#00B000;">一审登记</button>
 				</div>
 			</div>
+			
+			<div class="layui-row">
+				<div class="layui-bg-cyan">当前日期预览({$date})</div>
+				<table class="layui-hide" id="handleTable"  lay-filter="myHandleTable"></table>
+			</div>
+			<div class="layui-row">
+				<div class="layui-bg-cyan">重要保障期</div>
+				<table class="layui-hide" id="importantDateTable"></table>
+			</div>
+			<div class="layui-row">
+				<div class="layui-bg-cyan">试播期</div>
+				<table class="layui-hide" id="tempOnAirTable"></table>
+			</div>
+			<div class="layui-row">
+				<div class="layui-bg-cyan">临时停机</div>
+				<table class="layui-hide" id="tempDownTable"></table>
+			</div>
+			<div class="layui-row">
+				<div class="layui-bg-cyan">例行停机</div>
+				<table class="layui-hide" id="mcndrelTable"></table>
+			</div>
+			
 		</div>
 		<!-- End 监测处理表格 -->
 	</div>
@@ -713,9 +735,95 @@ window.onload=function(){
 	//相关报警relativeAlarm
 	$("#relativeAlarm").click(function(){
 		var handleTableData=layui.table.cache.handleTable;
-		console.log(handleTableData);
+		if(handleTableData.length!=1){
+			layer.msg("只有一条记录才能使用相关报警功能");
+			return false;
+		}
+		//console.log(handleTableData);
+		var startDateTime=handleTableData[0].StartDateTime;
+		 $.ajax({
+	         type: "POST",
+	         url:'/index.php/Index/addRelativeAlarmHandler?startDateTime='+startDateTime,
+	         dataType: "json",
+	         success: function(msg){
+	        	 layui.table.reload("handleTable");
+	           },
+	         error: function(){
+	         	layer.msg("发生错误");
+	         }
+	     });
 	});
 	//*********************************************************END一审登记**********************************************************************
+	
+	//*********************************************************   当前日期预览  **********************************************************************
+	table.render({  //重保期
+ 	    elem: '#importantDateTable'
+ 		,url:'/index.php/Index/getCurrentScheduleHandler'
+ 	    ,where:{tableName:"t_importantdate"}
+ 	    ,even:true
+ 	    ,id:'importantDateTable'
+ 	    ,cols: [[
+		   {field:'ID_Name',title: '名称'}
+ 	      ,{field:'ID_StartDateTime',title: '开始时间'}
+ 	      ,{field:'ID_EndDateTime',title: '结束时间'}
+ 	    ]]
+ 	    ,page: false
+ 	    ,done: function(res, curr, count){
+ 	 
+ 	      }
+ 	  });
+	
+	table.render({  //试播期
+ 	    elem: '#tempOnAirTable'
+ 		,url:'/index.php/Index/getCurrentScheduleHandler'
+ 	    ,where:{tableName:"t_temponair"}
+ 	    ,even:true
+ 	    ,id:'tempOnAirTable'
+ 	    ,cols: [[
+		   {field:'TO_Name',title: '名称'}
+ 	      ,{field:'StartDateTime',title: '开始时间'}
+ 	      ,{field:'EndDateTime',title: '结束时间'}
+ 	    ]]
+ 	    ,page: false
+ 	    ,done: function(res, curr, count){
+ 	 
+ 	      }
+ 	  });
+	
+	table.render({  //临时停机
+ 	    elem: '#tempDownTable'
+ 		,url:'/index.php/Index/getCurrentScheduleHandler'
+ 	    ,where:{tableName:"t_tempdown"}
+ 	    ,even:true
+ 	    ,id:'tempDownTable'
+ 	    ,cols: [[
+		   {field:'MC_Name',title: '监测频道'}
+ 	      ,{field:'TD_Start',title: '开始时间'}
+ 	      ,{field:'TD_End',title: '结束时间'}
+ 	    ]]
+ 	    ,page: false
+ 	    ,done: function(res, curr, count){
+ 	 
+ 	      }
+ 	  });
+	
+	table.render({  //临时停机
+ 	    elem: '#mcndrelTable'
+ 		,url:'/index.php/Index/getCurrentScheduleHandler'
+ 	    ,where:{tableName:"t_mcndrel"}
+ 	    ,even:true
+ 	    ,id:'mcndrelTable'
+ 	    ,cols: [[
+		   {field:'MC_Name',title: '监测频道'}
+ 	      ,{field:'MNR_StartDateTime',title: '开始时间'}
+ 	      ,{field:'MNR_EndDateTime',title: '结束时间'}
+ 	    ]]
+ 	    ,page: false
+ 	    ,done: function(res, curr, count){
+ 	 
+ 	      }
+ 	  });
+	//*********************************************************END当前日期预览**********************************************************************
 }
 //添加一审表
 function addYishen(data){

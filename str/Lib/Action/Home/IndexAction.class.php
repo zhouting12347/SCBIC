@@ -284,5 +284,82 @@ class IndexAction extends CommonAction
         }
         $this->ajaxReturn("","操作成功",1);
     }
+    
+    /**
+    +--------------------------------
+    * 相关报警
+    +--------------------------------
+    * @date: 2019年6月27日 下午3:47:40
+    * @author: zt
+    * @param: variable
+    * @return:
+    */
+    public function addRelativeAlarmHandler(){
+        $startDateTime=$_GET['startDateTime'];
+        $AlarmMessage=M('alarm_message');
+        $alarm=$AlarmMessage
+        ->where("sureStatus=0 and alarmHappentime='$startDateTime'")
+        ->join("left join t_volume_monitorchannel on t_volume_monitorchannel.MC_ID=t_alarm_message.channelId")
+        ->select();
+        if($alarm){
+            $Yishen=M('yishen');
+            foreach ($alarm as $v){
+                $data['AlarmId']=$v['alarmId'];
+                $data['MC_ID']=$v['MC_ID'];
+                $data['StartDateTime']=$v['alarmHappentime'];
+                $data['EndDateTime']=$v['alarmEndtime'];
+                $data['MC_Format']=$v['MC_Format'];
+                $data['TT_ID']=$v['TT_ID'];
+                $data['C_ID']=$v['C_ID'];
+                $Yishen->add($data);
+            }
+        }
+        $this->ajaxReturn('','',1);
+    }
+    
+    /**
+    +--------------------------------
+    * 获取重保期
+    +--------------------------------
+    * @date: 2019年6月27日 下午4:20:52
+    * @author: zt
+    * @param: variable
+    * @return:
+    */
+    public function getCurrentScheduleHandler(){
+        $Model=new Model();
+        $Model->db(1,C("DB_SCBIC2"));
+        $currentDate=date("Y-m-d",time());
+        switch($_GET['tableName']){
+            case "t_importantdate":
+                $data=$Model->query("select * from t_importantdate where ID_StartDate<='$currentDate' and ID_EndDate>='$currentDate'");
+                break;
+                
+            case "t_temponair":
+                $data=$Model->query("select * from t_temponair where TO_StartDate<='$currentDate' and TO_EndDate>='$currentDate'");
+                foreach ($data as $k=>$v){
+                    $data[$k]['StartDateTime']=$v['TO_StartDate']." ".$v['TO_StartTime'];
+                    $data[$k]['EndDateTime']=$v['TO_EndDate']." ".$v['TO_EndTime'];
+                }
+                break;
+                
+            case "t_tempdown":
+                $data=$Model->query("select * from t_tempdown left join t_monitorchannel on t_monitorchannel.MC_ID=t_tempdown.MC_ID where TD_Start<='$currentDate' and TD_End>='$currentDate'");
+                break;
+                
+            case "t_mcndrel":
+                $data=$Model->query("select * from t_mcndrel left join t_monitorchannel on t_monitorchannel.MC_ID=t_mcndrel.MC_ID where MNR_StartDate<='$currentDate' and MNR_EndDate>='$currentDate'");
+                break;
+        }
+        $result=array(
+            'code'=>0,
+            'msg'=>'',
+            'count'=>0,
+            'data'=>$data
+        );
+        echo json_encode($result);
+    }
+    
+    
 }
 ?>
