@@ -120,6 +120,29 @@
 				<div class="layui-bg-orange">监测处理</div>
 				<table class="layui-hide" id="handleTable"  lay-filter="myHandleTable"></table>
 			</div>
+			<div class="layui-row">
+				<div class="layui-col-md7">
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-warm" id="relativeAlarm">相关报警</button>
+					<span class="layui-badge layui-bg-blue" style="font-size: 12px;">重点时段</span>
+					<span class="layui-badge layui-bg-gray" id="importantTime">无</span>
+					
+					<span class="layui-badge layui-bg-blue" style="font-size: 12px;">例行停机</span>
+					<span class="layui-badge layui-bg-gray" id="scheduleStop">无</span>
+					
+					<span class="layui-badge layui-bg-red" style="font-size: 12px;">事故等级定性参考</span>
+					<span class="layui-badge layui-bg-gray" id="faultLevel">无</span>
+				</div>
+				<div class="layui-col-md4">
+					<div class="layui-form layui-inline">
+				      	<input type="radio" name="alarmStatus" value="1"  title="确定" checked>
+				      	<input type="radio" name="alarmStatus" value="0"  title="误报">
+				      </div>
+					<button type="button" class="layui-btn layui-btn-sm" id="alarmConfirm" style="background-color:#FF5722;">报警确认</button>
+				</div>
+				<div class="layui-col-md1">
+					<button type="button" class="layui-btn layui-btn-sm" id="yishen" style="background-color:#00B000;">一审登记</button>
+				</div>
+			</div>
 		</div>
 		<!-- End 监测处理表格 -->
 	</div>
@@ -490,10 +513,20 @@ window.onload=function(){
 	      ,{field:'MC_Name',title: '监测频道'}
 	      ,{field:'StartDateTime',width:145,title: '开始时间'}
 	      ,{field:'EndDateTime',width:145,title: '结束时间'}
-	      ,{field:'MC_Format',title: '高标清'}
+	      ,{field:'MC_Format',title: '高标清',templet:function(item){
+	    	  if(item.MC_Format==0){
+	    		  return "无";
+	    	  }else if(item.MC_Format==1){
+	    		  return "标清";
+	    	  }else if(item.MC_Format==2){
+	    		  return "高清";
+	    	  }else if(item.MC_Format==3){
+	    		  return "4K";
+	    	  }
+	       }}
 	      ,{field:'TT_Name',title: '传输类型'}
 	      ,{field:'C_Name',title: '逻辑频道'}
-	      ,{field:'action', title: '操作',width:100,align:'center', toolbar: '#handleBar'}
+	      ,{field:'action', title: '操作',align:'center', toolbar: '#handleBar'}
 	    ]]
 	    ,page: true
 	    ,done: function(res, curr, count){
@@ -626,7 +659,63 @@ window.onload=function(){
 		  layui.table.reload("monitorChannelTable",{where:{C_ID:C_ID,TT_ID:TT_ID,MC_Name:MC_Name}});
 		  return false; 
 	  });
-	  
+     
+	//*********************************************************END直播回看**********************************************************************
+	
+	//*********************************************************一审登记**********************************************************************
+	 //一审登记
+	   $("#yishen").click(function(){
+		layer.open({
+			    type: 2,
+			    anim:2,
+			    title:"一审登记",
+			    content: '/index.php/Index/video_yishen_layer',
+			    area: ['800px', '450px'],
+			    end: function(){
+			    	//刷新一审表
+     				layui.table.reload("handleTable");
+			    }
+			});
+	   });
+	
+	//确认报警
+	$("#alarmConfirm").click(function(){
+	  var checkStatus=table.checkStatus('handleTable');
+   	  if(checkStatus.data.length<1){
+   		  layer.msg("请选择报警");
+   		  return false;
+   	  }
+		layer.confirm('是否确认报警?', {icon: 3, title:'tip'}, function(index){
+			  $.ajax({
+		            type: "POST",
+		            url:'/index.php/Index/index_confirm_alarm_handler',
+		            data:checkStatus,
+		            dataType: "json",
+		            success: function(msg){
+		            		layer.msg(msg.info);
+		            		if(msg.status==1){
+		            			//刷新所有表
+		            			layui.table.reload("handleTable");
+		            			layui.table.reload("alarmTable");
+		            			layui.table.reload("samePlayTable");
+		            			layui.table.reload("importantTable");
+		            			layui.table.reload("stopTable");
+		            		}
+		              },
+		            error: function(){
+		            	layer.msg("error");
+		            }
+		        });
+			  layer.close(index);
+			});	
+	});
+	
+	//相关报警relativeAlarm
+	$("#relativeAlarm").click(function(){
+		var handleTableData=layui.table.cache.handleTable;
+		console.log(handleTableData);
+	});
+	//*********************************************************END一审登记**********************************************************************
 }
 //添加一审表
 function addYishen(data){
@@ -636,6 +725,22 @@ function addYishen(data){
          data:data,
          dataType: "json",
          success: function(msg){
+        	 		if(msg.data.importantTime==1){
+        	 			$("#importantTime").html("是");
+        	 			$("#importantTime").attr("class","layui-badge layui-bg-red");
+        	 		}else{
+        	 			$("#importantTime").html("否");
+        	 			$("#importantTime").attr("class","layui-badge layui-bg-gray");
+        	 		}
+        	 		
+        	 		if(msg.data.scheduleStop==1){
+        	 			$("#scheduleStop").html("是");
+        	 			$("#scheduleStop").attr("class","layui-badge layui-bg-red");
+        	 		}else{
+        	 			$("#scheduleStop").html("否");
+        	 			$("#scheduleStop").attr("class","layui-badge layui-bg-gray");
+        	 		}
+        	 		$("#faultLevel").html(msg.data.faultName);
          			//刷新handleTable，一审提交表
          			layui.table.reload("handleTable");
            },
@@ -653,6 +758,11 @@ function addMultiYishen(data){
         data:data,
         dataType: "json",
         success: function(msg){
+        	$("#importantTime").html("无");
+ 			$("#importantTime").attr("class","layui-badge layui-bg-gray");
+ 			$("#scheduleStop").html("无");
+ 			$("#scheduleStop").attr("class","layui-badge layui-bg-gray");
+ 			$("#faultLevel").html("无");
         	//刷新handleTable，一审提交表
  			layui.table.reload("handleTable");
           },

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+<style type="text/css">
+body{
+	padding:20px;
+}
+.layui-input{
+	width:450px;
+}
+</style>
+</head>
+<body class="layui-layout-body" >
+<div class="layui-fluid">
+	<div class="layui-col-sm9  layui-col-sm-offset1">
+	<form class="layui-form" action="" id="form1">
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">责任单位</label>
+	    <div class="layui-input-block">
+	      <select name="FSDD" class="layui-input" lay-search>
+	      	<option value="">--直接选择或搜索--</option>
+	      	<volist name="dutymember" id="vo">
+	      		<option value="{$vo.DM_Name}">{$vo.DM_Name}</option>
+	      	</volist>
+	      </select>
+	    </div>
+	  </div>
+	  
+  	
+	   <div class="layui-form-item">
+	    <label class="layui-form-label">传输类型</label>
+	    <div class="layui-input-block">
+	      <select name="Type" class="layui-input" lay-search>
+	      	<option value="">--选择--</option>
+	      	<volist name="transfertype" id="vo">
+	      		<option value="{$vo.TT_Name}">{$vo.TT_Name}</option>
+	      	</volist>
+	      </select>
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">一审描述</label>
+	    <div class="layui-input-block">
+	      <textarea type="text" name="description" autocomplete="off" class="layui-textarea"></textarea>
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">影响节目</label>
+	    <div class="layui-input-block">
+	      <textarea type="text" name="YXJM" autocomplete="off" class="layui-textarea"></textarea>
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <div class="layui-input-block" style="text-align: center;">
+	    	<button type="submit" class="layui-btn">提交</button>
+	    	<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	    </div>
+	  </div>
+	  
+	</form>
+	</div>
+</div>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/layui/layui.all.js"></script>
+<script>
+window.onload=function(){
+	 //保存
+	  $("#form1").submit(function(e){
+		  $.ajax({
+	            async: false,
+	            type: "POST",
+	            url:'/index.php/Index/video_yishen_submit_handler',
+	            data:$("#form1").serialize(),
+	            dataType: "json",
+	            success: function(msg){
+	            		layer.msg(msg.info);
+	              },
+	            error: function(){
+	            	layer.msg("发生错误");
+	            }
+	        });
+	       return false; 
+	  });
+}
+</script>
+</body>
+</html>

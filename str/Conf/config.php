@@ -24,8 +24,7 @@ return array(
 	
 	'get_live_url' => 'http://10.2.2.10:8080/FRP/VedioThirdty.do?method=execute&key=1008920',//获取直播视频播放地址接口
 	'get_video_url' => 'http://10.2.2.10:8080/FRP/VedioThirdty.do?method=execute&key=1008920&isDownload=0', //获取录播视频播放地址接口
-	
-    
+
 	//'LOGIN_GATEWAY' => 'Admin-Public/login', // 默认认证网关
 	'TMPL_ACTION_ERROR'     => 'Public:error', // 默认错误跳转对应的模板文件//flag=0 返回上一页，flag=1跳转指定页
 	'TMPL_ACTION_SUCCESS'   => 'Public:success', // 默认成功跳转对应的模板文件//flag=0 刷新父页面，flag=1跳转指定页
